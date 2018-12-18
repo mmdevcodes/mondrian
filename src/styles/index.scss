@@ -66,6 +66,8 @@ body {
   right: -400px;
   padding: 10px;
   font-size: 0.8rem;
+  opacity: 0.75;
+  transition: all 0.2s ease-in-out;
 
   table {
     width: 100%;
@@ -85,6 +87,7 @@ body {
 .settings:hover,
 .settings:focus {
   right: 0;
+  opacity: 1;
 }
 
 .settings::before {
