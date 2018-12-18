@@ -58,7 +58,9 @@ body {
   top: 0;
   right: -400px;
   padding: 10px;
-  font-size: 0.8rem; }
+  font-size: 0.8rem;
+  opacity: 0.75;
+  transition: all 0.2s ease-in-out; }
   .settings table {
     width: 100%;
     margin: 0 0 2rem; }
@@ -70,7 +72,8 @@ body {
 
 .settings:hover,
 .settings:focus {
-  right: 0; }
+  right: 0;
+  opacity: 1; }
 
 .settings::before {
   content: "Settings";
