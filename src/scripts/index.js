@@ -1,4 +1,4 @@
-import { getColumnSpan, getRowSpan, checkMaxMin, colors } from './utils';
+import { getRandomInt, getColumnSpan, getRowSpan, checkMaxMin, colors } from './utils';
 import setBlocks from './setBlocks';
 import sizeBlock from './sizeBlock';
 import colorBlock from './colorBlock';
@@ -21,26 +21,42 @@ let blockSize = 3;
 
 // Functions
 const sizeAllBlocks = (blocks) => {
-    let currentPrimaryBlocks = 0;
+    let curPriBlocks = 0;
+    let primaryBlockSet = [];
 
-    blocks.forEach(block => {
+    // Assign random blocks as a `primary`
+    for (let i = 0; i < primaryBlocks; i++) {
+        let assignedPrimary = getRandomInt(0, totalBlocks - 1);
+
+        // Do not allow duplicates
+        while (primaryBlockSet.includes(assignedPrimary)) {
+            assignedPrimary = getRandomInt(0, totalBlocks - 1);
+        }
+
+        // Keeping track of which blocks are `primary`
+        primaryBlockSet = [...primaryBlockSet, assignedPrimary];
+    }
+
+    blocks.forEach((block, index) => {
+        /**
+         * If this block's index is in the primary block array
+         *  then use the maximum size and exit the function.
+         */
+        if (primaryBlockSet.includes(index)) {
+            sizeBlock(block, blockSize, blockSize);
+
+            return;
+        }
+
         let colSpan = getColumnSpan(blockSize);
         let rowSpan = getRowSpan(blockSize);
 
-        /**
-         * If the randomly generated block size is a `primary` block but
-         * we've already exceeded the max amount it will keep generating
-         * a new size until it's no longer a `primary` block.
-         */
-        if (colSpan + rowSpan === blockSize * 2 && currentPrimaryBlocks < primaryBlocks) {
-            currentPrimaryBlocks++;
-        } else {
-            if (blockSize === 1) return;
+        // Do not allow other primary-sized blocks to be added
+        while (colSpan + rowSpan === blockSize * 2) {
+            if (blockSize === 1) break;
 
-            while (colSpan + rowSpan === blockSize * 2) {
-                colSpan = getColumnSpan(blockSize);
-                rowSpan = getRowSpan(blockSize);
-            }
+            colSpan = getColumnSpan(blockSize);
+            rowSpan = getRowSpan(blockSize);
         }
 
         sizeBlock(block, colSpan, rowSpan);
