@@ -34,7 +34,6 @@ const sizeAllBlocks = (blocks) => {
          */
         if (colSpan + rowSpan === blockSize * 2 && currentPrimaryBlocks < primaryBlocks) {
             currentPrimaryBlocks++;
-            return;
         } else {
             if (blockSize === 1) return;
 
@@ -60,8 +59,8 @@ window.addEventListener('DOMContentLoaded', (e) => {
     // inputPrimaryBlocks.value = primaryBlocks;
 });
 
-// Input for changing total amount of blocks
-inputTotalBlocks.addEventListener('keyup', e => {
+// Event handler for changing total amount of blocks
+const totalBlocksHandler = (e) => {
     const target = e.target;
     const max = target.max;
     let value = target.value;
@@ -71,10 +70,13 @@ inputTotalBlocks.addEventListener('keyup', e => {
     setBlocks(value, main)
         .then(generated => sizeAllBlocks(generated))
         .catch(e => console.log(e));
-});
+};
 
-// Input for changing max block size
-inputBlockSize.addEventListener('keyup', e => {
+inputTotalBlocks.addEventListener('change', totalBlocksHandler);
+inputTotalBlocks.addEventListener('keyup', totalBlocksHandler);
+
+// Event handler for changing max block size
+const blockSizeHandler = (e) => {
     const target = e.target;
     const value = target.value;
     const max = target.max;
@@ -82,7 +84,10 @@ inputBlockSize.addEventListener('keyup', e => {
 
     blockSize = checkMaxMin(value, max, min, target);
     sizeAllBlocks(main.querySelectorAll('li'));
-});
+};
+
+inputBlockSize.addEventListener('change', blockSizeHandler);
+inputBlockSize.addEventListener('keyup', blockSizeHandler);
 
 // Input for changing primary block amount
 // inputPrimaryBlocks.addEventListener('keyup', e => {
