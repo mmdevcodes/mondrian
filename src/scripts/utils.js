@@ -50,3 +50,9 @@ export function checkMaxMin(value, max = 9999, min = 1, input) {
 
     return value;
 }
+
+export function getRandomColor(colors) {
+    const setColor = getRandomInt(0, Object.keys(colors).length - 1);
+
+    return Object.keys(colors)[setColor];
+}

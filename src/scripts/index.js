@@ -1,32 +1,34 @@
 import '../styles/index.scss';
 import colorBlock from './colorBlock';
 import setBlocks from './setBlocks';
-import { checkMaxMin } from './utils';
 import sizeAllBlocks from './sizeAllBlocks';
+import setupColors from './setupColors';
+import { checkMaxMin } from './utils';
 
 // Selectors
 const main = document.querySelector('.main');
 const inputTotalBlocks = document.getElementById('total-blocks');
 const inputBlockSize = document.getElementById('block-size');
 const inputPrimaryBlocks = document.getElementById('primary-blocks');
+const colorSettings = document.getElementById('settings-color');
 const generateColors = document.getElementById('generate-colors');
 const generateSizes = document.getElementById('generate-sizes');
 const generateAll = document.getElementById('generate-all');
 
 // Variables
-export let totalBlocks = 75;
-export let primaryBlocks = 3;
+export let totalBlocks = 80;
+export let primaryBlocks = 5;
 export let blockSize = 3;
-export let colors = [
-    '#fff',
-    '#eeefdf',
-    '#1C1B1B',
-    '#e43323',
-    '#1a1d99',
-    '#fcd46b'
-];
+export let colors = {
+    color0: '#eeefdf',
+    color1: '#1C1B1B',
+    color2: '#e43323',
+    color3: '#1a1d99',
+    color4: '#fcd46b'
+};
 
 // Initialize
+setupColors(colorSettings);
 setBlocks(totalBlocks, main)
     .then(generated => sizeAllBlocks(generated))
     .catch(e => console.log(e));

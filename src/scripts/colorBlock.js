@@ -1,11 +1,12 @@
-import { getRandomInt } from './utils';
+import { getRandomInt, getRandomColor } from './utils';
+
 /**
  * Adds background color to a block
  * @param {HTMLElement} el Element
- * @param {string[]} colors Colors
+ * @param {Object} colors Colors
  */
 export default function colorBlocks(el, colors) {
-    const setColor = getRandomInt(0, colors.length - 1);
+    const color = getRandomColor(colors);
 
-    el.style.backgroundColor = `${[colors[setColor]]}`;
+    el.style.backgroundColor = `var(--${color})`;
 };
