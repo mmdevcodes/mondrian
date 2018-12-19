@@ -8,7 +8,7 @@ import '../styles/index.scss';
 const main = document.querySelector('.main');
 const inputTotalBlocks = document.getElementById('total-blocks');
 const inputBlockSize = document.getElementById('block-size');
-// const inputPrimaryBlocks = document.getElementById('primary-blocks');
+const inputPrimaryBlocks = document.getElementById('primary-blocks');
 const generateColors = document.getElementById('generate-colors');
 const generateSizes = document.getElementById('generate-sizes');
 const generateAll = document.getElementById('generate-all');
@@ -21,7 +21,6 @@ let blockSize = 3;
 
 // Functions
 const sizeAllBlocks = (blocks) => {
-    let curPriBlocks = 0;
     let primaryBlockSet = [];
 
     // Assign random blocks as a `primary`
@@ -72,7 +71,7 @@ setBlocks(totalBlocks, main)
 window.addEventListener('DOMContentLoaded', (e) => {
     inputTotalBlocks.value = totalBlocks;
     inputBlockSize.value = blockSize;
-    // inputPrimaryBlocks.value = primaryBlocks;
+    inputPrimaryBlocks.value = primaryBlocks;
 });
 
 // Event handler for changing total amount of blocks
@@ -81,9 +80,8 @@ const totalBlocksHandler = (e) => {
     const max = target.max;
     let value = target.value;
 
-    value = checkMaxMin(value, max, null, target);
-
-    setBlocks(value, main)
+    totalBlocks = checkMaxMin(value, max, null, target);
+    setBlocks(totalBlocks, main)
         .then(generated => sizeAllBlocks(generated))
         .catch(e => console.log(e));
 };
@@ -105,13 +103,19 @@ const blockSizeHandler = (e) => {
 inputBlockSize.addEventListener('change', blockSizeHandler);
 inputBlockSize.addEventListener('keyup', blockSizeHandler);
 
-// Input for changing primary block amount
-// inputPrimaryBlocks.addEventListener('keyup', e => {
-//     const value = parseInt(e.target.value);
+// Event handler for changing primary block amount
+const primaryBlockHandler = (e) => {
+    const target = e.target;
+    let value = target.value;
 
-//     primaryBlocks = value;
-//     sizeAllBlocks(main.querySelectorAll('li'));
-// });
+    value = checkMaxMin(value, totalBlocks, 1, target);
+
+    primaryBlocks = value;
+    sizeAllBlocks(main.querySelectorAll('li'));
+};
+
+inputPrimaryBlocks.addEventListener('change', primaryBlockHandler);
+inputPrimaryBlocks.addEventListener('keyup', primaryBlockHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
