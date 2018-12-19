@@ -50,12 +50,3 @@ export function checkMaxMin(value, max = 9999, min = 1, input) {
 
     return value;
 }
-
-export const colors = [
-    '#fff',
-    '#eeefdf',
-    '#1C1B1B',
-    '#e43323',
-    '#1a1d99',
-    '#fcd46b'
-];

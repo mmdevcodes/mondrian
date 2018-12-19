@@ -1,8 +1,8 @@
-import { getRandomInt, getColumnSpan, getRowSpan, checkMaxMin, colors } from './utils';
-import setBlocks from './setBlocks';
-import sizeBlock from './sizeBlock';
-import colorBlock from './colorBlock';
 import '../styles/index.scss';
+import colorBlock from './colorBlock';
+import setBlocks from './setBlocks';
+import { checkMaxMin } from './utils';
+import sizeAllBlocks from './sizeAllBlocks';
 
 // Selectors
 const main = document.querySelector('.main');
@@ -13,54 +13,18 @@ const generateColors = document.getElementById('generate-colors');
 const generateSizes = document.getElementById('generate-sizes');
 const generateAll = document.getElementById('generate-all');
 
-
 // Variables
-let totalBlocks = 75;
-let primaryBlocks = 3;
-let blockSize = 3;
-
-// Functions
-const sizeAllBlocks = (blocks) => {
-    let primaryBlockSet = [];
-
-    // Assign random blocks as a `primary`
-    for (let i = 0; i < primaryBlocks; i++) {
-        let assignedPrimary = getRandomInt(0, totalBlocks - 1);
-
-        // Do not allow duplicates
-        while (primaryBlockSet.includes(assignedPrimary)) {
-            assignedPrimary = getRandomInt(0, totalBlocks - 1);
-        }
-
-        // Keeping track of which blocks are `primary`
-        primaryBlockSet = [...primaryBlockSet, assignedPrimary];
-    }
-
-    blocks.forEach((block, index) => {
-        /**
-         * If this block's index is in the primary block array
-         *  then use the maximum size and exit the function.
-         */
-        if (primaryBlockSet.includes(index)) {
-            sizeBlock(block, blockSize, blockSize);
-
-            return;
-        }
-
-        let colSpan = getColumnSpan(blockSize);
-        let rowSpan = getRowSpan(blockSize);
-
-        // Do not allow other primary-sized blocks to be added
-        while (colSpan + rowSpan === blockSize * 2) {
-            if (blockSize === 1) break;
-
-            colSpan = getColumnSpan(blockSize);
-            rowSpan = getRowSpan(blockSize);
-        }
-
-        sizeBlock(block, colSpan, rowSpan);
-    });
-};
+export let totalBlocks = 75;
+export let primaryBlocks = 3;
+export let blockSize = 3;
+export let colors = [
+    '#fff',
+    '#eeefdf',
+    '#1C1B1B',
+    '#e43323',
+    '#1a1d99',
+    '#fcd46b'
+];
 
 // Initialize
 setBlocks(totalBlocks, main)
