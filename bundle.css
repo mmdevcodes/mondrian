@@ -12,9 +12,7 @@
 html {
   box-sizing: border-box; }
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
   box-sizing: inherit; }
 
 body {
@@ -34,22 +32,19 @@ body {
   background: var(--black);
   width: 100vw;
   height: 100vh; }
-
-.main li {
-  position: relative;
-  transition: all 0.3s ease-in-out; }
-
-.main li::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("/public/images/dark-grey-terrazzo.png");
-  /* background-size: 100px; */
-  opacity: 0.1;
-  mix-blend-mode: exclusion; }
+  .main li {
+    position: relative;
+    transition: all 0.3s ease-in-out; }
+    .main li::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("/public/images/dark-grey-terrazzo.png");
+      opacity: 0.1;
+      mix-blend-mode: exclusion; }
 
 .settings {
   position: fixed;
@@ -69,20 +64,17 @@ body {
   .settings input[type="text"],
   .settings input[type="number"] {
     width: 100%; }
-
-.settings:hover,
-.settings:focus {
-  right: 0;
-  opacity: 1; }
-
-.settings::before {
-  content: "Settings";
-  display: inline-block;
-  position: absolute;
-  top: 5px;
-  right: 100%;
-  padding: 5px;
-  background: var(--settings-bg); }
+  .settings::before {
+    content: "Settings";
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 100%;
+    padding: 5px;
+    background: var(--settings-bg); }
+  .settings:hover, .settings:focus {
+    right: 0;
+    opacity: 1; }
 
 .generate-btns {
   text-align: right; }
