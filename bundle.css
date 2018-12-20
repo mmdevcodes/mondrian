@@ -91,5 +91,12 @@ body {
 .generate-btns {
   text-align: right; }
 
+#canvas-screenshot {
+  max-width: 80vw; }
+
+.slbContentEl .slbContent {
+  font-size: 0;
+  box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.4); }
+
 
 /*# sourceMappingURL=bundle.css.map*/
