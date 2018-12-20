@@ -43,9 +43,14 @@ export function checkMaxMin(value, max = 9999, min = 1, input) {
         value = min;
     }
 
+    // If something went wrong just set the number to the minimum
+    if (!Number.isInteger(value)) {
+        value = min;
+    }
+
     // If input is supplied change the  value
     if (input !== undefined) {
-        input.value = value || min; // Do not allow blank values
+        input.value = value;
     }
 
     return value;

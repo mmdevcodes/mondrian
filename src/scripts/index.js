@@ -49,7 +49,7 @@ const totalBlocksHandler = (e) => {
     const max = target.max;
     let value = target.value;
 
-    totalBlocks = checkMaxMin(value, max, null, target);
+    totalBlocks = checkMaxMin(value, max, undefined, target);
     setBlocks(totalBlocks, main)
         .then(generated => sizeAllBlocks(generated))
         .catch(e => console.log(e));

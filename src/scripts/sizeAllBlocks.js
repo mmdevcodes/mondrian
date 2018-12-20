@@ -11,15 +11,16 @@ export default function sizeAllBlocks(blocks) {
 
     // Assign random blocks as a `primary`
     for (let i = 0; i < primaryBlocks; i++) {
-        let assignedPrimary = getRandomInt(0, totalBlocks - 1);
+        let primaryIndex = getRandomInt(0, totalBlocks - 1);
 
         // Do not allow duplicates
-        while (primaryBlockSet.includes(assignedPrimary)) {
-            assignedPrimary = getRandomInt(0, totalBlocks - 1);
+        while (primaryBlockSet.includes(primaryIndex)) {
+            if (totalBlocks === 1) break; // Prevent infinite loop
+            primaryIndex = getRandomInt(0, totalBlocks - 1);
         }
 
         // Keeping track of which blocks are `primary`
-        primaryBlockSet = [...primaryBlockSet, assignedPrimary];
+        primaryBlockSet = [...primaryBlockSet, primaryIndex];
     }
 
     blocks.forEach((block, index) => {
@@ -37,8 +38,7 @@ export default function sizeAllBlocks(blocks) {
 
         // Do not allow other primary-sized blocks to be added
         while (colSpan + rowSpan === blockSize * 2) {
-            if (blockSize === 1)
-                break;
+            if (blockSize === 1) break; // Prevent infinite loop
             colSpan = getColumnSpan(blockSize);
             rowSpan = getRowSpan(blockSize);
         }
