@@ -41,6 +41,8 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0"
+    "@babel/polyfill": "^7.0.0",
+    "html2canvas": "^1.0.0-alpha.12",
+    "simple-lightbox": "^2.1.0"
   }
 }

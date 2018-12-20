@@ -1,3 +1,5 @@
+@import '~simple-lightbox/dist/simpleLightbox.css';
+
 :root {
 	--white: #fff;
 	--gray: #eeefdf;
@@ -121,4 +123,14 @@ body {
 
 .generate-btns {
 	text-align: right;
+}
+
+#canvas-screenshot {
+	max-width: 80vw;
+}
+
+// simple-lightbox overwrites
+.slbContentEl .slbContent {
+	font-size: 0;
+	box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.4);
 }

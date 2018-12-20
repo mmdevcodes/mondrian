@@ -4,6 +4,8 @@ import setBlocks from './setBlocks';
 import sizeAllBlocks from './sizeAllBlocks';
 import setupColors from './setupColors';
 import { checkMaxMin } from './utils';
+import html2canvas from 'html2canvas';
+import simpleLightbox from 'simple-lightbox';
 
 // Selectors
 const main = document.querySelector('.main');
@@ -14,6 +16,7 @@ const colorSettings = document.getElementById('settings-color');
 const generateColors = document.getElementById('generate-colors');
 const generateSizes = document.getElementById('generate-sizes');
 const generateAll = document.getElementById('generate-all');
+const screenshotBtn = document.getElementById('screenshot');
 
 // Variables
 export let totalBlocks = 80;
@@ -95,10 +98,26 @@ generateSizes.addEventListener('click', e => {
     sizeAllBlocks(main.querySelectorAll('li'));
 });
 
-// Randomly regenerate everything
+// Button to randomly regenerate everything
 generateAll.addEventListener('click', (e) => {
     sizeAllBlocks(main.querySelectorAll('li'));
     main.querySelectorAll('li').forEach(el => {
         colorBlock(el, colors);
+    });
+});
+
+// Button to take screenshot
+screenshotBtn.addEventListener('click', e => {
+    html2canvas(main, {
+        // scale: window.devicePixelRatio
+    })
+    .then(canvas => {
+        canvas.id = 'canvas-screenshot';
+        canvas.removeAttribute('style');
+        simpleLightbox.open({
+            content: canvas,
+            elementClass: 'slbContentEl'
+        });
+        // document.body.insertAdjacentElement('afterbegin', canvas);
     });
 });
