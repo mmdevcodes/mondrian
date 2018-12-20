@@ -51,6 +51,10 @@ export function checkMaxMin(value, max = 9999, min = 1, input) {
     return value;
 }
 
+/**
+ * Generate a random color from a colors object
+ * @param {Object} colors
+ */
 export function getRandomColor(colors) {
     const setColor = getRandomInt(0, Object.keys(colors).length - 1);
 
