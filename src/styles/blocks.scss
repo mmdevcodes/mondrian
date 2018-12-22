@@ -61,7 +61,6 @@ body {
             height: 100%;
             background-image: url('./../assets/bg-pattern.png');
             opacity: 0.1;
-            mix-blend-mode: exclusion;
         }
     }
 }
@@ -133,5 +132,5 @@ body {
 }
 
 #canvas-screenshot {
-	max-width: 80vw;
+    max-width: 80vw;
 }

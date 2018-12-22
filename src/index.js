@@ -25,7 +25,7 @@ export let totalBlocks = 80;
 export let primaryBlocks = 5;
 export let blockSize = 3;
 export let colors = {
-    color0: '#eeefdf',
+    color0: '#fff',
     color1: '#1C1B1B',
     color2: '#e43323',
 };
@@ -111,9 +111,14 @@ generateAll.addEventListener('click', (e) => {
 // Button to take screenshot
 screenshotBtn.addEventListener('click', e => {
     html2canvas(layout, {
-        // scale: window.devicePixelRatio
         width: resolution[0],
-        height: resolution[1]
+        height: resolution[1],
+        onclone: html => {
+            const layout = html.querySelector('.layout');
+
+            // Removes the proportional scaling for outputted screenshot
+            layout.style.transform = null;
+        }
     })
     .then(canvas => {
         canvas.id = 'canvas-screenshot';
@@ -122,6 +127,5 @@ screenshotBtn.addEventListener('click', e => {
             content: canvas,
             elementClass: 'slbContentEl'
         });
-        // document.body.insertAdjacentElement('afterbegin', canvas);
     });
 });

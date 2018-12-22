@@ -69,7 +69,10 @@ export function getRandomColor(colors) {
 /**
  * Resize element proportionally to available space
  * @param {HTMLElement} el Element to scale
- * @param {Array} resolution Width/Height of element
+ * @param {*} availableWidth
+ * @param {*} availableHeight
+ * @param {*} contentWidth
+ * @param {*} contentHeight
  */
 export function scaleContent(el, availableWidth, availableHeight, contentWidth, contentHeight) {
     const scale = Math.min(
