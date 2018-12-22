@@ -22,6 +22,13 @@ body {
   background: var(--black); }
 
 .main {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  padding: 1vw; }
+
+.layout {
+  position: absolute;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   grid-auto-rows: 80px;
@@ -31,13 +38,13 @@ body {
   padding: 0;
   list-style: none;
   background: var(--black);
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden; }
-  .main li {
+  overflow: hidden;
+  top: 50%;
+  left: 50%; }
+  .layout li {
     position: relative;
     transition: all 0.3s ease-in-out; }
-    .main li::after {
+    .layout li::after {
       content: "";
       position: absolute;
       top: 0;
