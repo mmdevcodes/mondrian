@@ -6,42 +6,44 @@
     <title>Mondrian</title>
 </head>
 <body>
-    <ul class="main"></ul>
-    <div class="settings" tabindex="0">
-        <table>
-            <tr>
-                <td><label for="total-blocks">Total Blocks <small>(Max 999)</small></label></td>
-                <td><input id="total-blocks" type="number" min="1" max="999"></td>
-            </tr>
-            <tr>
-                <td><label for="block-size">Max Block Size <small>(Max 20)</small></label></td>
-                <td><input id="block-size" type="number" min="1" max="20"></td>
-            </tr>
-            <tr>
-                <td><label for="primary-blocks">Primary Blocks <small>(Block of full size)</small></label></td>
-                <td><input id="primary-blocks" type="number"></td>
-            </tr>
-            <tr>
-                <td>Colors</td>
-                <td id="settings-color">
-                    <button id="add-color">Add Color</button>
-                </td>
-            </tr>
-        </table>
-        <div class="generate-btns">
-            <div>
-                <button id="generate-colors" type="button">Regenerate Colors</button>
-            </div>
-            <div>
-                <button id="generate-sizes" type="button">Regenerate Sizes</button>
-            </div>
-            <div>
-                <button id="generate-all" type="button">Regenerate Size & Color</button>
-            </div>
-            <div>
-                <button id="screenshot" type="button">Take Screenshot</button>
+    <main class="main">
+        <ul class="layout"></ul>
+        <div class="settings" tabindex="0">
+            <table>
+                <tr>
+                    <td><label for="total-blocks">Total Blocks <small>(Max 999)</small></label></td>
+                    <td><input id="total-blocks" type="number" min="1" max="999"></td>
+                </tr>
+                <tr>
+                    <td><label for="block-size">Max Block Size <small>(Max 20)</small></label></td>
+                    <td><input id="block-size" type="number" min="1" max="20"></td>
+                </tr>
+                <tr>
+                    <td><label for="primary-blocks">Primary Blocks <small>(Block of full size)</small></label></td>
+                    <td><input id="primary-blocks" type="number"></td>
+                </tr>
+                <tr>
+                    <td>Colors</td>
+                    <td id="settings-color">
+                        <button id="add-color">Add Color</button>
+                    </td>
+                </tr>
+            </table>
+            <div class="generate-btns">
+                <div>
+                    <button id="generate-colors" type="button">Regenerate Colors</button>
+                </div>
+                <div>
+                    <button id="generate-sizes" type="button">Regenerate Sizes</button>
+                </div>
+                <div>
+                    <button id="generate-all" type="button">Regenerate Size & Color</button>
+                </div>
+                <div>
+                    <button id="screenshot" type="button">Take Screenshot</button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>

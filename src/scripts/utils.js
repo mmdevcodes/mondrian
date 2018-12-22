@@ -65,3 +65,17 @@ export function getRandomColor(colors) {
 
     return Object.keys(colors)[setColor];
 }
+
+/**
+ * Resize element proportionally to available space
+ * @param {HTMLElement} el Element to scale
+ * @param {Array} resolution Width/Height of element
+ */
+export function scaleContent(el, availableWidth, availableHeight, contentWidth, contentHeight) {
+    const scale = Math.min(
+        availableWidth / contentWidth,
+        availableHeight / contentHeight
+    );
+
+    el.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}

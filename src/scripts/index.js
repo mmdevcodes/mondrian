@@ -2,13 +2,15 @@ import '../styles/index.scss';
 import colorBlock from './colorBlock';
 import setBlocks from './setBlocks';
 import sizeAllBlocks from './sizeAllBlocks';
+import setupArea from './setupArea';
 import setupColors from './setupColors';
 import { checkMaxMin } from './utils';
 import html2canvas from 'html2canvas';
 import simpleLightbox from 'simple-lightbox';
 
 // Selectors
-const main = document.querySelector('.main');
+export const main = document.querySelector('.main');
+export const layout = document.querySelector('.layout');
 const inputTotalBlocks = document.getElementById('total-blocks');
 const inputBlockSize = document.getElementById('block-size');
 const inputPrimaryBlocks = document.getElementById('primary-blocks');
@@ -26,13 +28,13 @@ export let colors = {
     color0: '#eeefdf',
     color1: '#1C1B1B',
     color2: '#e43323',
-    color3: '#1a1d99',
-    color4: '#fcd46b'
 };
+export let resolution = [1920, 1080];
 
 // Initialize
+setupArea();
 setupColors(colorSettings);
-setBlocks(totalBlocks, main)
+setBlocks(totalBlocks, layout)
     .then(generated => sizeAllBlocks(generated))
     .catch(e => console.log(e));
 
@@ -50,7 +52,7 @@ const totalBlocksHandler = (e) => {
     let value = target.value;
 
     totalBlocks = checkMaxMin(value, max, undefined, target);
-    setBlocks(totalBlocks, main)
+    setBlocks(totalBlocks, layout)
         .then(generated => sizeAllBlocks(generated))
         .catch(e => console.log(e));
 };
@@ -66,7 +68,7 @@ const blockSizeHandler = (e) => {
     const min = target.min;
 
     blockSize = checkMaxMin(value, max, min, target);
-    sizeAllBlocks(main.querySelectorAll('li'));
+    sizeAllBlocks(layout.querySelectorAll('li'));
 };
 
 inputBlockSize.addEventListener('change', blockSizeHandler);
@@ -80,7 +82,7 @@ const primaryBlockHandler = (e) => {
     value = checkMaxMin(value, totalBlocks, 1, target);
 
     primaryBlocks = value;
-    sizeAllBlocks(main.querySelectorAll('li'));
+    sizeAllBlocks(layout.querySelectorAll('li'));
 };
 
 inputPrimaryBlocks.addEventListener('change', primaryBlockHandler);
@@ -88,28 +90,30 @@ inputPrimaryBlocks.addEventListener('keyup', primaryBlockHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
-    main.querySelectorAll('li').forEach(el => {
+    layout.querySelectorAll('li').forEach(el => {
         colorBlock(el, colors);
     });
 });
 
 // Button to randomly generate new sizes
 generateSizes.addEventListener('click', e => {
-    sizeAllBlocks(main.querySelectorAll('li'));
+    sizeAllBlocks(layout.querySelectorAll('li'));
 });
 
 // Button to randomly regenerate everything
 generateAll.addEventListener('click', (e) => {
-    sizeAllBlocks(main.querySelectorAll('li'));
-    main.querySelectorAll('li').forEach(el => {
+    sizeAllBlocks(layout.querySelectorAll('li'));
+    layout.querySelectorAll('li').forEach(el => {
         colorBlock(el, colors);
     });
 });
 
 // Button to take screenshot
 screenshotBtn.addEventListener('click', e => {
-    html2canvas(main, {
+    html2canvas(layout, {
         // scale: window.devicePixelRatio
+        width: resolution[0],
+        height: resolution[1]
     })
     .then(canvas => {
         canvas.id = 'canvas-screenshot';
