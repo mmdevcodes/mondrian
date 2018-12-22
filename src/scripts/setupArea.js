@@ -6,7 +6,6 @@ export default function setupArea() {
     let mainWidth = main.clientWidth;
     let mainHeight = main.clientHeight;
 
-    debugger;
     console.log(document.querySelector('.main').clientHeight);
     console.log(mainWidth, mainHeight);
 
