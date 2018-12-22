@@ -6,9 +6,6 @@ export default function setupArea() {
     let mainWidth = main.clientWidth;
     let mainHeight = main.clientHeight;
 
-    console.log(document.querySelector('.main').clientHeight);
-    console.log(mainWidth, mainHeight);
-
     // Calculating width/height without padding
     mainWidth -= parseFloat(mainStyle.paddingLeft) + parseFloat(mainStyle.paddingRight);
     mainHeight -= parseFloat(mainStyle.paddingTop) + parseFloat(mainStyle.paddingBottom);
