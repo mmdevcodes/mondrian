@@ -1,0 +1,137 @@
+:root {
+	--white: #fff;
+	--gray: #eeefdf;
+	--black: #000;
+	--darkgray: #1C1B1B;
+	--red: #e43323;
+	--blue: #1a1d99;
+	--yellow: #fcd46b;
+	--fill: var(--yellow);
+	--settings-bg: var(--white);
+}
+
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	font-family: Arial, Helvetica, sans-serif;
+	background: var(--black);
+}
+
+.main {
+	display: block;
+	width: 100vw;
+	height: 100vh;
+	padding: 1vw;
+}
+
+.layout {
+	position: absolute;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+	grid-auto-rows: 80px;
+	grid-auto-flow: dense;
+	grid-gap: 20px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background: var(--black);
+	overflow: hidden;
+	top: 50%;
+	left: 50%;
+	transition: grid-gap 0.5s ease-in-out;
+
+    li {
+        position: relative;
+        transition: all 0.5s ease-in-out;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('./../assets/bg-pattern.png');
+            opacity: 0.1;
+            mix-blend-mode: exclusion;
+        }
+    }
+}
+
+.settings {
+	position: fixed;
+	width: 400px;
+	background: var(--settings-bg);
+	top: 0;
+	right: -400px;
+	padding: 10px;
+	font-size: 0.8rem;
+	opacity: 0.75;
+    transition: all 0.2s ease-in-out;
+
+	#settings-color {
+		input {
+			width: 90%;
+		}
+
+		button {
+			width: 10%;
+			padding: 0;
+			margin: 0;
+		}
+
+		#add-color {
+			width: 100%;
+		}
+	}
+
+	table {
+		width: 100%;
+		margin: 0 0 2rem;
+
+		td {
+			vertical-align: middle
+		}
+    }
+
+	label {
+		white-space: nowrap;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+		width: 100%;
+    }
+
+    &::before {
+        content: "Settings";
+        display: inline-block;
+        position: absolute;
+        top: 5px;
+        right: 100%;
+        padding: 5px;
+        background: var(--settings-bg);
+    }
+
+    &:hover,
+    &:focus {
+        right: 0;
+        opacity: 1;
+	}
+}
+
+.generate-btns {
+	text-align: right;
+}
+
+#canvas-screenshot {
+	max-width: 80vw;
+}

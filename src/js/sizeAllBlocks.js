@@ -1,6 +1,6 @@
 import sizeBlock from './sizeBlock';
 import { getColumnSpan, getRandomInt, getRowSpan } from './utils';
-import { primaryBlocks, totalBlocks, blockSize } from './index';
+import { primaryBlocks, totalBlocks, blockSize } from '../index';
 
 /**
  * Size a collection of blocks

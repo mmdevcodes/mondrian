@@ -1,10 +1,10 @@
-import '../styles/index.scss';
-import colorBlock from './colorBlock';
-import setBlocks from './setBlocks';
-import sizeAllBlocks from './sizeAllBlocks';
-import setupArea from './setupArea';
-import setupColors from './setupColors';
-import { checkMaxMin } from './utils';
+import './styles/index.scss';
+import colorBlock from './js/colorBlock';
+import setBlocks from './js/setBlocks';
+import sizeAllBlocks from './js/sizeAllBlocks';
+import setupArea from './js/setupArea';
+import setupColors from './js/setupColors';
+import { checkMaxMin } from './js/utils';
 import html2canvas from 'html2canvas';
 import simpleLightbox from 'simple-lightbox';
 

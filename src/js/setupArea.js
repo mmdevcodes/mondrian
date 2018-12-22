@@ -1,4 +1,4 @@
-import { main, layout, resolution } from './index';
+import { main, layout, resolution } from '../index';
 import { scaleContent } from './utils';
 
 export default function setupArea() {
