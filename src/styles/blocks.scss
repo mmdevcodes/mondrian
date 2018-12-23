@@ -1,8 +1,14 @@
+.blocks-section {
+	position: relative;
+	padding: 1vw;
+	height: 100%;
+}
+
 .blocks-layout {
 	position: absolute;
-	overflow: hidden;
 	top: 50%;
 	left: 50%;
+	overflow: hidden;
 }
 
 .blocks-grid {
@@ -32,70 +38,4 @@
             opacity: 0.075;
         }
     }
-}
-
-.settings {
-	position: fixed;
-	width: 400px;
-	background: var(--settings-bg);
-	top: 0;
-	right: -400px;
-	padding: 10px;
-	font-size: 0.8rem;
-	opacity: 0.75;
-    transition: all 0.2s ease-in-out;
-
-	#settings-color {
-		input {
-			width: 90%;
-		}
-
-		button {
-			width: 10%;
-			padding: 0;
-			margin: 0;
-		}
-
-		#add-color {
-			width: 100%;
-		}
-	}
-
-	table {
-		width: 100%;
-		margin: 0 0 2rem;
-
-		td {
-			vertical-align: middle
-		}
-    }
-
-	label {
-		white-space: nowrap;
-    }
-
-    input[type="text"],
-    input[type="number"] {
-		width: 100%;
-    }
-
-    &::before {
-        content: "Settings";
-        display: inline-block;
-        position: absolute;
-        top: 5px;
-        right: 100%;
-        padding: 5px;
-        background: var(--settings-bg);
-    }
-
-    &:hover,
-    &:focus {
-        right: 0;
-        opacity: 1;
-	}
-}
-
-.generate-btns {
-	text-align: right;
 }

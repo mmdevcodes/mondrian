@@ -10,6 +10,7 @@ import simpleLightbox from 'simple-lightbox';
 
 // Selectors
 export const main = document.querySelector('.main');
+export const blocksSection = document.querySelector('.blocks-section');
 export const blocksLayout = document.querySelector('.blocks-layout');
 export const blocksGrid = document.querySelector('.blocks-grid');
 const inputTotalBlocks = document.getElementById('total-blocks');
@@ -33,7 +34,7 @@ export let colors = {
 export let resolution = [1920, 1080];
 
 // Initialize
-setupArea();
+setupArea(blocksSection, blocksLayout);
 setupColors(colorSettings);
 setBlocks(totalBlocks, blocksGrid)
     .then(generated => sizeAllBlocks(generated))
@@ -53,7 +54,7 @@ const totalBlocksHandler = (e) => {
     let value = target.value;
 
     totalBlocks = checkMaxMin(value, max, undefined, target);
-    setBlocks(totalBlocks, blocksLayout)
+    setBlocks(totalBlocks, blocksGrid)
         .then(generated => sizeAllBlocks(generated))
         .catch(e => console.log(e));
 };
@@ -69,7 +70,7 @@ const blockSizeHandler = (e) => {
     const min = target.min;
 
     blockSize = checkMaxMin(value, max, min, target);
-    sizeAllBlocks(blocksLayout.querySelectorAll('li'));
+    sizeAllBlocks(blocksGrid.querySelectorAll('li'));
 };
 
 inputBlockSize.addEventListener('change', blockSizeHandler);
@@ -83,7 +84,7 @@ const primaryBlockHandler = (e) => {
     value = checkMaxMin(value, totalBlocks, 1, target);
 
     primaryBlocks = value;
-    sizeAllBlocks(blocksLayout.querySelectorAll('li'));
+    sizeAllBlocks(blocksGrid.querySelectorAll('li'));
 };
 
 inputPrimaryBlocks.addEventListener('change', primaryBlockHandler);
@@ -91,20 +92,20 @@ inputPrimaryBlocks.addEventListener('keyup', primaryBlockHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
-    blocksLayout.querySelectorAll('li').forEach(el => {
+    blocksGrid.querySelectorAll('li').forEach(el => {
         colorBlock(el, colors);
     });
 });
 
 // Button to randomly generate new sizes
 generateSizes.addEventListener('click', e => {
-    sizeAllBlocks(blocksLayout.querySelectorAll('li'));
+    sizeAllBlocks(blocksGrid.querySelectorAll('li'));
 });
 
 // Button to randomly regenerate everything
 generateAll.addEventListener('click', (e) => {
-    sizeAllBlocks(blocksLayout.querySelectorAll('li'));
-    blocksLayout.querySelectorAll('li').forEach(el => {
+    sizeAllBlocks(blocksGrid.querySelectorAll('li'));
+    blocksGrid.querySelectorAll('li').forEach(el => {
         colorBlock(el, colors);
     });
 });

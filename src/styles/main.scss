@@ -26,10 +26,11 @@ body {
 }
 
 .main {
-	display: block;
+	display: grid;
+	// grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	grid-template-columns: 80vw 1fr;
 	width: 100vw;
 	height: 100vh;
-	padding: 1vw;
 }
 
 #canvas-screenshot {
