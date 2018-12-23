@@ -8,9 +8,13 @@ import { primaryBlocks, totalBlocks, blockSize } from '../index';
  */
 export default function sizeAllBlocks(blocks) {
     let primaryBlockSet = [];
+    let primaryBlocksTotal = primaryBlocks;
+
+    // Prevent infinite loop
+    if (primaryBlocksTotal > totalBlocks) primaryBlocksTotal = totalBlock;
 
     // Assign random blocks as a `primary`
-    for (let i = 0; i < primaryBlocks; i++) {
+    for (let i = 0; i < primaryBlocksTotal; i++) {
         let primaryIndex = getRandomInt(0, totalBlocks - 1);
 
         // Do not allow duplicates
