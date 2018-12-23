@@ -1,4 +1,4 @@
-import { main, layout, resolution } from '../index';
+import { main, blocksLayout, resolution } from '../index';
 import { scaleContent } from './utils';
 
 export default function setupArea() {
@@ -11,9 +11,9 @@ export default function setupArea() {
     mainHeight -= parseFloat(mainStyle.paddingTop) + parseFloat(mainStyle.paddingBottom);
 
     // Setting width/height on the layout element
-    layout.style.width = `${resolution[0]}px`;
-    layout.style.height = `${resolution[1]}px`;
+    blocksLayout.style.width = `${resolution[0]}px`;
+    blocksLayout.style.height = `${resolution[1]}px`;
 
     // Scale the layout proportionally to available space
-    scaleContent(layout, mainWidth, mainHeight, resolution[0], resolution[1]);
+    scaleContent(blocksLayout, mainWidth, mainHeight, resolution[0], resolution[1]);
 }

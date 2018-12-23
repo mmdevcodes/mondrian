@@ -10,7 +10,8 @@ import simpleLightbox from 'simple-lightbox';
 
 // Selectors
 export const main = document.querySelector('.main');
-export const layout = document.querySelector('.layout');
+export const blocksLayout = document.querySelector('.blocks-layout');
+export const blocksGrid = document.querySelector('.blocks-grid');
 const inputTotalBlocks = document.getElementById('total-blocks');
 const inputBlockSize = document.getElementById('block-size');
 const inputPrimaryBlocks = document.getElementById('primary-blocks');
@@ -34,7 +35,7 @@ export let resolution = [1920, 1080];
 // Initialize
 setupArea();
 setupColors(colorSettings);
-setBlocks(totalBlocks, layout)
+setBlocks(totalBlocks, blocksGrid)
     .then(generated => sizeAllBlocks(generated))
     .catch(e => console.log(e));
 
@@ -52,7 +53,7 @@ const totalBlocksHandler = (e) => {
     let value = target.value;
 
     totalBlocks = checkMaxMin(value, max, undefined, target);
-    setBlocks(totalBlocks, layout)
+    setBlocks(totalBlocks, blocksLayout)
         .then(generated => sizeAllBlocks(generated))
         .catch(e => console.log(e));
 };
@@ -68,7 +69,7 @@ const blockSizeHandler = (e) => {
     const min = target.min;
 
     blockSize = checkMaxMin(value, max, min, target);
-    sizeAllBlocks(layout.querySelectorAll('li'));
+    sizeAllBlocks(blocksLayout.querySelectorAll('li'));
 };
 
 inputBlockSize.addEventListener('change', blockSizeHandler);
@@ -82,7 +83,7 @@ const primaryBlockHandler = (e) => {
     value = checkMaxMin(value, totalBlocks, 1, target);
 
     primaryBlocks = value;
-    sizeAllBlocks(layout.querySelectorAll('li'));
+    sizeAllBlocks(blocksLayout.querySelectorAll('li'));
 };
 
 inputPrimaryBlocks.addEventListener('change', primaryBlockHandler);
@@ -90,31 +91,31 @@ inputPrimaryBlocks.addEventListener('keyup', primaryBlockHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
-    layout.querySelectorAll('li').forEach(el => {
+    blocksLayout.querySelectorAll('li').forEach(el => {
         colorBlock(el, colors);
     });
 });
 
 // Button to randomly generate new sizes
 generateSizes.addEventListener('click', e => {
-    sizeAllBlocks(layout.querySelectorAll('li'));
+    sizeAllBlocks(blocksLayout.querySelectorAll('li'));
 });
 
 // Button to randomly regenerate everything
 generateAll.addEventListener('click', (e) => {
-    sizeAllBlocks(layout.querySelectorAll('li'));
-    layout.querySelectorAll('li').forEach(el => {
+    sizeAllBlocks(blocksLayout.querySelectorAll('li'));
+    blocksLayout.querySelectorAll('li').forEach(el => {
         colorBlock(el, colors);
     });
 });
 
 // Button to take screenshot
 screenshotBtn.addEventListener('click', e => {
-    html2canvas(layout, {
+    html2canvas(blocksLayout, {
         width: resolution[0],
         height: resolution[1],
         onclone: html => {
-            const layout = html.querySelector('.layout');
+            const layout = html.querySelector('.blocks-layout');
 
             // Removes the proportional scaling for outputted screenshot
             layout.style.transform = null;

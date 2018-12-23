@@ -1,0 +1,37 @@
+:root {
+	--white: #fff;
+	--gray: #eeefdf;
+	--black: #000;
+	--darkgray: #292929;
+	--red: #e43323;
+	--blue: #1a1d99;
+	--yellow: #fcd46b;
+	--fill: var(--yellow);
+	--settings-bg: var(--white);
+}
+
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	font-family: Arial, Helvetica, sans-serif;
+    background: var(--darkgray);
+}
+
+.main {
+	display: block;
+	width: 100vw;
+	height: 100vh;
+	padding: 1vw;
+}
+
+#canvas-screenshot {
+    max-width: 80vw;
+}

@@ -7,7 +7,9 @@ module.exports = {
     entry: './src/index.js',
     devServer: {
         contentBase: path.join(__dirname, 'build'),
-        disableHostCheck: true
+        disableHostCheck: true,
+        stats: 'minimal',
+        open: true
     },
     node: {
         fs: 'empty'
