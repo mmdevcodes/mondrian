@@ -3,8 +3,9 @@ const path = require('path');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //installed via npm
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
 
 const buildPath = path.resolve(__dirname, 'build');
 
@@ -27,34 +28,34 @@ module.exports = {
             },
             {
                 test: /\.(scss|css|sass)$/,
-                use: ExtractTextPlugin.extract({
-                    use: [
-                        {
-                            // translates CSS into CommonJS
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
-                            // Runs compiled CSS through postcss for vendor prefixing
-                            loader: 'postcss-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
-                            // compiles Sass to CSS
-                            loader: 'sass-loader',
-                            options: {
-                                outputStyle: 'expanded',
-                                sourceMap: true,
-                                sourceMapContents: true
-                            }
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        // translates CSS into CommonJS
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
                         }
-                    ],
-                    fallback: 'style-loader'
-                }),
+                    },
+                    {
+                        // Runs compiled CSS through postcss for vendor prefixing
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        // compiles Sass to CSS
+                        loader: 'sass-loader',
+                        options: {
+                            outputStyle: 'expanded',
+                            sourceMap: true,
+                            sourceMapContents: true
+                        }
+                    }
+                ]
             },
             {
                 // Load all images as base64 encoding if they are smaller than 8192 bytes
@@ -79,20 +80,12 @@ module.exports = {
         }),
         new CleanWebpackPlugin(buildPath),
         new FaviconsWebpackPlugin({
-            // Your source logo
             logo: './src/assets/logo.png',
-            // The prefix for all image files (might be a folder or a name)
             prefix: 'icons-[hash]/',
-            // Generate a cache file with control hashes and
-            // don't rebuild the favicons until those hashes change
             persistentCache: true,
-            // Inject the html into the html-webpack-plugin
             inject: true,
-            // favicon background color (see https://github.com/haydenbleasel/favicons#usage)
             background: '#000',
-            // favicon app title (see https://github.com/haydenbleasel/favicons#usage)
             title: 'Mondrian Layout',
-            // which icons should be generated (see https://github.com/haydenbleasel/favicons#usage)
             icons: {
                 android: true,
                 appleIcon: true,
@@ -106,8 +99,20 @@ module.exports = {
                 windows: true
             }
         }),
-        new ExtractTextPlugin('styles.[md5:contenthash:hex:20].css', {
-            allChunks: true
+        new MiniCssExtractPlugin({
+            filename: 'styles-[contenthash].css'
+        }),
+        new HtmlCriticalWebpackPlugin({
+          base: path.resolve(__dirname, 'build'),
+          src: 'index.html',
+          dest: 'index.html',
+          inline: true,
+          extract: true,
+          dimensions: [1300, 900],
+          minify: true,
+          penthouse: {
+            blockJSRequests: false
+          }
         }),
         new OptimizeCssAssetsPlugin({
             cssProcessor: require('cssnano'),
