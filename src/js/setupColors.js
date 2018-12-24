@@ -1,5 +1,6 @@
-import { colors } from '../index';
+import { colors, generateColors } from '../index';
 import colorBlock from './colorBlock';
+import { newRandomColor } from './utils';
 import closeBtn from '../assets/close.svg';
 
 /**
@@ -51,9 +52,13 @@ export default function setupColors(settings) {
     const addColorHandler = (e) => {
         let index = 0;
 
+        // Create a new index in the colors object and create settings
         while (colors.hasOwnProperty(`color${index}`)) index++;
-        colors[`color${index}`] = "#000";
+        colors[`color${index}`] = newRandomColor();
         createColorSetting(`color${index}`);
+
+        // Regenerate colors
+        generateColors.click();
     };
 
     // Setup color addition functionality

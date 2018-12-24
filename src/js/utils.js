@@ -67,6 +67,17 @@ export function getRandomColor(colors) {
 }
 
 /**
+ * Generate a fresh new color
+ */
+export function newRandomColor() {
+    // Throwing in some interesting names
+    const colors = ['rebeccapurple', 'aquamarine', 'forestgreen', 'lavender', 'honeydew', 'aliceblue', 'firebrick', 'lightgoldenrodyellow', 'thistle', 'whitesmoke', 'navajowhite', 'gainsboro', 'peru', 'crimson', 'fuchsia', 'salmon', 'seashell', 'sienna', 'slategray', 'turquoise', 'indigo', 'gold', 'dodgerblue'];
+    const colorIndex = getRandomInt(0, colors.length);
+
+    return colors[colorIndex];
+}
+
+/**
  * Resize element proportionally to available space
  * @param {HTMLElement} el Element to scale
  * @param {*} availableWidth

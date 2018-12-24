@@ -13,14 +13,14 @@ export const main = document.querySelector('.main');
 export const blocksSection = document.querySelector('.blocks-section');
 export const blocksLayout = document.querySelector('.blocks-layout');
 export const blocksGrid = document.querySelector('.blocks-grid');
-const inputTotalBlocks = document.getElementById('total-blocks');
-const inputBlockSize = document.getElementById('block-size');
-const inputPrimaryBlocks = document.getElementById('primary-blocks');
-const colorSettings = document.getElementById('settings-color');
-const generateColors = document.getElementById('generate-colors');
-const generateSizes = document.getElementById('generate-sizes');
-const generateAll = document.getElementById('generate-all');
-const screenshotBtn = document.getElementById('screenshot');
+export const inputTotalBlocks = document.getElementById('total-blocks');
+export const inputBlockSize = document.getElementById('block-size');
+export const inputPrimaryBlocks = document.getElementById('primary-blocks');
+export const colorSettings = document.getElementById('settings-color');
+export const generateColors = document.getElementById('generate-colors');
+export const generateSizes = document.getElementById('generate-sizes');
+export const generateAll = document.getElementById('generate-all');
+export const screenshotBtn = document.getElementById('screenshot');
 
 // Variables
 export let totalBlocks = 80;
