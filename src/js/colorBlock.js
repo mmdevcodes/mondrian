@@ -1,4 +1,4 @@
-import { getRandomInt, getRandomColor } from './utils';
+import { getRandomColor } from './utils';
 
 /**
  * Adds background color to a block

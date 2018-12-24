@@ -12,41 +12,46 @@
                 <ul class="blocks-grid"></ul>
             </div>
         </div>
-        <div class="settings-section" tabindex="0">
-            <table>
-                <tr>
-                    <td><label for="total-blocks">Total Blocks <small>(Max 999)</small></label></td>
-                    <td><input id="total-blocks" type="number" min="1" max="999"></td>
-                </tr>
-                <tr>
-                    <td><label for="block-size">Max Block Size <small>(Max 20)</small></label></td>
-                    <td><input id="block-size" type="number" min="1" max="20"></td>
-                </tr>
-                <tr>
-                    <td><label for="primary-blocks">Primary Blocks <small>(Block of full size)</small></label></td>
-                    <td><input id="primary-blocks" type="number"></td>
-                </tr>
-                <tr>
-                    <td>Colors</td>
-                    <td id="settings-color">
-                        <button id="add-color">Add Color</button>
-                    </td>
-                </tr>
-            </table>
-            <div class="generate-btns">
-                <div>
-                    <button id="generate-colors" type="button">Regenerate Colors</button>
-                </div>
-                <div>
-                    <button id="generate-sizes" type="button">Regenerate Sizes</button>
-                </div>
-                <div>
-                    <button id="generate-all" type="button">Regenerate Size & Color</button>
-                </div>
-                <div>
-                    <button id="screenshot" type="button">Take Screenshot</button>
-                </div>
+        <div class="settings-section">
+            <div class="settings-top">
+                <a href="https://github.com/MauriceMahan/mondrian-layout" title="Mondrian">
+                    <img src="<%= require('./src/assets/logo.png') %>" alt="Mondrian by Maurice Mahan">
+                </a>
+                <h1 class="visually-hidden">Mondrian Layout with CSS and JS</h1>
             </div>
+            <form class="settings-form" id="settings">
+                <fieldset>
+                    <legend class="settings-header">Parameters</legend>
+                    <table id="parameters">
+                        <tr>
+                            <td><label for="total-blocks">Total Blocks<br><small>(Max 999)</small></label></td>
+                            <td><input id="total-blocks" type="number" min="1" max="999"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="block-size">Max Block Size<br><small>(Max 20)</small></label></td>
+                            <td><input id="block-size" type="number" min="1" max="20"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="primary-blocks">Primary Blocks<br><small>(Block of full size)</small></label></td>
+                            <td><input id="primary-blocks" type="number"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <hr class="divider">
+                <fieldset>
+                    <legend class="settings-header">Colors</legend>
+                    <div id="settings-color"></div>
+                    <button id="add-color" type="button">Add Color</button>
+                </fieldset>
+                <hr class="divider">
+                <fieldset>
+                    <legend>Generate</legend>
+                    <button id="generate-colors" type="button">Regenerate Colors</button>
+                    <button id="generate-sizes" type="button">Regenerate Sizes</button>
+                    <button id="generate-all" type="button">Regenerate Size & Color</button>
+                    <button id="screenshot" type="button">Take Screenshot</button>
+                </fieldset>
+            </form>
         </div>
     </main>
 </body>

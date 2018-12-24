@@ -1,5 +1,6 @@
 import { colors } from '../index';
 import colorBlock from './colorBlock';
+import closeBtn from '../assets/close.svg';
 
 /**
  * Setup color system
@@ -25,8 +26,9 @@ export default function setupColors(settings) {
     // Event handler for removing colors
     const colorRemoveHandler = (e) => {
         const target = e.target;
-        const id = target.getAttribute('for');
+        const id = target.getAttribute('data-for');
         const input = document.querySelector(`input[id='${id}']`);
+        const parent = target.parentElement;
 
         // Remove from colors object
         delete colors[id];
@@ -41,9 +43,8 @@ export default function setupColors(settings) {
             colorBlock(element, colors);
         });
 
-        // Remove settings input/button
-        target.remove();
-        input.remove();
+        // Remove color input, button, label, etc...
+        parent.remove();
     };
 
     // Event handler for adding colors
@@ -60,13 +61,17 @@ export default function setupColors(settings) {
 
     // Add HTML and CSS for manipulating colors to the DOM
     const createColorSetting = (color) => {
+        const colorField = document.createElement('div');
+        const colorIndicator = document.createElement('label');
         const colorInput = document.createElement('input');
         const colorRemove = document.createElement('button');
+        const svg = `<img src="${closeBtn}" alt="Remove">`;
 
         // Add CSS Variable color
         root.style.setProperty(`--${color}`, colors[color]);
 
         // Setup settings input
+        colorInput.setAttribute('type', 'text');
         colorInput.setAttribute('id', color);
         colorInput.setAttribute('value', colors[color]);
         colorInput.addEventListener('change', colorChangeHandler);
@@ -74,12 +79,25 @@ export default function setupColors(settings) {
 
         // Setup color removal buttons
         colorRemove.setAttribute('type', 'button');
-        colorRemove.setAttribute('for', color);
-        colorRemove.textContent = 'x';
+        colorRemove.setAttribute('title', 'Remove');
+        colorRemove.setAttribute('data-for', color);
+        colorRemove.insertAdjacentHTML('afterbegin', svg);
         colorRemove.addEventListener('click', colorRemoveHandler);
 
-        addColor.insertAdjacentElement('beforebegin', colorInput);
-        addColor.insertAdjacentElement('beforebegin', colorRemove);
+        // Setup color indicator
+        colorIndicator.setAttribute('for', color);
+        colorIndicator.textContent = color;
+        colorIndicator.classList.add('color-indicator');
+        colorIndicator.style.backgroundColor = `var(--${color})`;
+
+        // Setup wrapper element
+        colorField.classList.add('field');
+
+        // Setup DOM
+        colorField.insertAdjacentElement('beforeend', colorInput);
+        colorField.insertAdjacentElement('beforeend', colorIndicator);
+        colorField.insertAdjacentElement('beforeend', colorRemove);
+        settings.insertAdjacentElement('afterbegin', colorField);
     };
 
     // Loop over all colors and setup functionality

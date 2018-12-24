@@ -1,15 +1,3 @@
-:root {
-	--white: #fff;
-	--gray: #eeefdf;
-	--black: #000;
-	--darkgray: #292929;
-	--red: #e43323;
-	--blue: #1a1d99;
-	--yellow: #fcd46b;
-	--fill: var(--yellow);
-	--settings-bg: var(--white);
-}
-
 html {
 	box-sizing: border-box;
 }
@@ -21,18 +9,31 @@ html {
 body {
 	margin: 0;
 	overflow: hidden;
-	font-family: Arial, Helvetica, sans-serif;
-    background: var(--darkgray);
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background: $darkgray;
 }
 
-.main {
-	display: grid;
-	// grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-	grid-template-columns: 80vw 1fr;
-	width: 100vw;
-	height: 100vh;
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+
+.visually-hidden {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	height: 1px; width: 1px;
+	margin: -1px; padding: 0; border: 0;
 }
 
 #canvas-screenshot {
     max-width: 80vw;
+}
+
+@media (min-width: $breakpoint) {
+	.main {
+		display: flex;
+		justify-content: space-between;
+		width: 100vw;
+		height: 100vh;
+	}
 }

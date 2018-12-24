@@ -1,65 +1,175 @@
 .settings-section {
-	// position: fixed;
-	// width: 400px;
-	background: var(--settings-bg);
-	top: 0;
-	right: -400px;
-	padding: 10px;
-	font-size: 0.8rem;
-	opacity: 0.75;
-    transition: all 0.2s ease-in-out;
+    transition: all $trans-time-short $trans-ease;
+    height: 100%;
+    background: $darkgray-alt;
+    padding: 1rem;
+    color: $white;
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
 
-	#settings-color {
-		input {
-			width: 90%;
-		}
+.settings-top {
+    text-align: center;
+    margin: 0 0 1rem;
 
-		button {
-			width: 10%;
-			padding: 0;
-			margin: 0;
-		}
+    img {
+        width: 50px;
+    }
+}
 
-		#add-color {
-			width: 100%;
-		}
-	}
+.settings-form {
+    fieldset {
+        border: none;
+        margin: 0 0 30px;
+        padding: 0;
 
-	table {
-		width: 100%;
-		margin: 0 0 2rem;
+        legend {
+            color: $white;
+            margin: 0 0 14px;
+            text-align: center;
+            font-size: 1.4rem;
+            line-height: 1;
+        }
 
-		td {
-			vertical-align: middle
-		}
+        > *:last-child {
+            margin-bottom: 0 !important;
+        }
     }
 
-	label {
-		white-space: nowrap;
+    table {
+        width: 100%;
+
+        tr:last-child td { border-bottom: none; }
+
+        td {
+            vertical-align: middle;
+            line-height: 1;
+            border-bottom: 10px solid transparent;
+
+            &.align-top {
+                vertical-align: top;
+            }
+
+            &:first-child {
+                padding-right: 5px;
+            }
+        }
+    }
+
+    label {
+        white-space: nowrap;
     }
 
     input[type="text"],
     input[type="number"] {
-		width: 100%;
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid $gray;
+        background: $darkgray;
+        color: $white;
+        height: 40px;
+        padding: 0 10px;
+        transition: all $trans-time-short $trans-ease;
+
+        &:hover,
+        &:focus {
+            border-color: $white;
+        }
     }
 
-    &::before {
-        content: "Settings";
-        display: inline-block;
-        position: absolute;
-        top: 5px;
-        right: 100%;
-        padding: 5px;
-        background: var(--settings-bg);
+    input[type="number"] {
+        margin: 0;
+        -moz-appearance: textfield;
+        appearance: textfield;
+
+        // Chrome-specific
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+        }
     }
 
-    &:hover,
-    &:focus {
-        right: 0;
-        opacity: 1;
-	}
+    button {
+        display: block;
+        width: 100%;
+        background: $darkgray-alt;
+        color: $white;
+        border: 1px solid $lightgray;
+        padding: 0;
+        margin: 0 0 10px;
+        text-transform: uppercase;
+        text-align: center;
+        height: 40px;
+        cursor: pointer;
+        transition: all $trans-time-short $trans-ease;
+
+        &:hover,
+        &:focus {
+            border-color: $white;
+        }
+    }
 }
 
-.generate-btns {
-	text-align: right;
+.field {
+    position: relative;
+    margin: 0 0 10px;
+
+    button {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        display: inline-block;
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0;
+        font-size: 0;
+        width: 20px;
+        height: 20px;
+        opacity: 0.75;
+        cursor: pointer;
+        transition: all $trans-time-short $trans-ease;
+
+        &:hover,
+        &:focus {
+            opacity: 1;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.color-indicator {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    border: 1px solid $gray;
+    font-size: 0;
+    text-indent: -9999px;
+}
+
+.divider {
+	box-sizing: content-box;
+	height: 0;
+	overflow: visible;
+    text-align: inherit;
+    margin: 0 0 15px;
+    border: 0;
+    text-align: center;
+
+    &::after {
+        content: "";
+        display: inline-block;
+        width: 100px;
+        max-width: 100%;
+        border-top: 1px solid $gray;
+        vertical-align: top;
+    }
 }
