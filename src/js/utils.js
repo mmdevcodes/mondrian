@@ -68,13 +68,49 @@ export function getRandomColor(colors) {
 
 /**
  * Generate a fresh new color
+ * @param {String=} type Type of color (optional)
  */
-export function newRandomColor() {
+export function newRandomColor(type) {
     // Throwing in some interesting names
-    const colors = ['rebeccapurple', 'aquamarine', 'forestgreen', 'lavender', 'honeydew', 'aliceblue', 'firebrick', 'lightgoldenrodyellow', 'thistle', 'whitesmoke', 'navajowhite', 'gainsboro', 'peru', 'crimson', 'fuchsia', 'salmon', 'seashell', 'sienna', 'slategray', 'turquoise', 'indigo', 'gold', 'dodgerblue'];
-    const colorIndex = getRandomInt(0, colors.length - 1);
+    const colorList = {
+        red: ['crimson', 'firebrick', 'salmon'],
+        pink: ['fuchsia', 'deeppink'],
+        orange: ['coral', 'tomato'],
+        yellow: ['lemonchiffon', 'lightgoldenrodyellow'],
+        purple: ['rebeccapurple', 'lavender', 'thistle', 'slateblue'],
+        green: ['forestgreen', 'olive', 'springgreen'],
+        blue: ['aquamarine', 'steelblue', 'powderblue', 'dodgerblue', 'royalblue', 'navy', 'midnightblue'],
+        brown: ['wheat', 'navajowhite', 'peru', 'sienna'],
+        gray: ['gainsboro', 'silver', 'dimgray', 'lightslategray', 'slategray', 'darkslategray'],
+        white: ['honeydew', 'mistyrose', 'seashell', 'oldlace', 'snow']
+    };
+    let color;
 
-    return colors[colorIndex];
+    /**
+     * If a type of color is specified generate a random name of
+     * that color otherwise pull a random one from the entire list.
+     */
+    if (type !== undefined) {
+        const colorIndex = getRandomInt(0, colorList[type].length - 1);
+        color = colorList[type][colorIndex];
+    } else {
+        const colors = [
+            ...colorList.red,
+            ...colorList.pink,
+            ...colorList.orange,
+            ...colorList.yellow,
+            ...colorList.purple,
+            ...colorList.green,
+            ...colorList.blue,
+            ...colorList.brown,
+            ...colorList.gray,
+            ...colorList.white
+        ];
+        const colorIndex = getRandomInt(0, colors.length - 1);
+        color = colors[colorIndex];
+    }
+
+    return color;
 }
 
 /**

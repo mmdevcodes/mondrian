@@ -1,7 +1,12 @@
 .blocks-section {
 	position: relative;
 	padding: 1rem;
-	// height: 100%;
+	opacity: 0;
+	transition: opacity $trans-time $trans-ease;
+
+	&.ready {
+		opacity: 1;
+	}
 
 	&::before {
 		content: "";

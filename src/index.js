@@ -4,7 +4,7 @@ import setBlocks from './js/setBlocks';
 import sizeAllBlocks from './js/sizeAllBlocks';
 import setupArea from './js/setupArea';
 import setupColors from './js/setupColors';
-import { checkMaxMin } from './js/utils';
+import { checkMaxMin, newRandomColor } from './js/utils';
 import html2canvas from 'html2canvas';
 import simpleLightbox from 'simple-lightbox';
 
@@ -23,13 +23,14 @@ export const generateAll = document.getElementById('generate-all');
 export const screenshotBtn = document.getElementById('screenshot');
 
 // Variables
-export let totalBlocks = 80;
+export let totalBlocks = 100;
 export let primaryBlocks = 5;
 export let blockSize = 3;
 export let colors = {
     color0: '#fff',
-    color1: '#1C1B1B',
-    color2: '#e43323',
+    color1: newRandomColor('white'),
+    color2: newRandomColor('gray'),
+    color3: newRandomColor()
 };
 export let resolution = [1920, 1080];
 

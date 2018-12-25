@@ -21,4 +21,5 @@ export default debounce(function(outerEl, innerEl) {
 
     // Scale the layout proportionally to available space
     scaleContent(innerEl, mainWidth, mainHeight, resolution[0], resolution[1]);
+    outerEl.classList.add('ready');
 }, 100);
