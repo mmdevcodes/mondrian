@@ -106,6 +106,17 @@
         cursor: pointer;
         transition: all $trans-time-short $trans-ease;
 
+        &.alt {
+            background: $green;
+            border-color: $green;
+
+            &:hover,
+            &:focus {
+                background: $green-light;
+                border-color: $white;
+            }
+        }
+
         &:hover,
         &:focus {
             border-color: $white;

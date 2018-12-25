@@ -6,7 +6,7 @@ import setupArea from './js/setupArea';
 import setupColors from './js/setupColors';
 import { checkMaxMin, newRandomColor } from './js/utils';
 import html2canvas from 'html2canvas';
-import simpleLightbox from 'simple-lightbox';
+import glfx from 'glfx';
 
 // Selectors
 export const main = document.querySelector('.main');
@@ -20,7 +20,7 @@ export const colorSettings = document.getElementById('settings-color');
 export const generateColors = document.getElementById('generate-colors');
 export const generateSizes = document.getElementById('generate-sizes');
 export const generateAll = document.getElementById('generate-all');
-export const screenshotBtn = document.getElementById('screenshot');
+export const addEffects = document.getElementById('add-effects');
 
 // Variables
 export let totalBlocks = 100;
@@ -39,7 +39,7 @@ setupArea(blocksSection, blocksLayout);
 setupColors(colorSettings);
 setBlocks(totalBlocks, blocksGrid)
     .then(generated => sizeAllBlocks(generated))
-    .catch(e => console.log(e));
+    .catch(error => console.error(error));
 
 // Event listeners
 window.addEventListener('DOMContentLoaded', (e) => {
@@ -61,7 +61,7 @@ const totalBlocksHandler = (e) => {
     totalBlocks = checkMaxMin(value, max, undefined, target);
     setBlocks(totalBlocks, blocksGrid)
         .then(generated => sizeAllBlocks(generated))
-        .catch(e => console.log(e));
+        .catch(error => console.error(error));
 };
 
 inputTotalBlocks.addEventListener('change', totalBlocksHandler);
@@ -115,8 +115,8 @@ generateAll.addEventListener('click', (e) => {
     });
 });
 
-// Button to take screenshot
-screenshotBtn.addEventListener('click', e => {
+// Button to add effects
+addEffects.addEventListener('click', e => {
     html2canvas(blocksLayout, {
         width: resolution[0],
         height: resolution[1],
@@ -128,11 +128,13 @@ screenshotBtn.addEventListener('click', e => {
         }
     })
     .then(canvas => {
-        canvas.id = 'canvas-screenshot';
-        canvas.removeAttribute('style');
-        simpleLightbox.open({
-            content: canvas,
-            elementClass: 'slbContentEl'
-        });
-    });
+        const fxCanvas = glfx.canvas();
+        const texture = fxCanvas.texture(canvas);
+
+        fxCanvas.id = 'canvas-effects';
+        fxCanvas.draw(texture).update();
+        // fxCanvas.draw(texture).brightnessContrast(0.5, 0.5).update();
+        blocksLayout.prepend(fxCanvas);
+    })
+    .catch(error => console.error(error));
 });

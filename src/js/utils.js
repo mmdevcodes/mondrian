@@ -73,10 +73,10 @@ export function getRandomColor(colors) {
 export function newRandomColor(type) {
     // Throwing in some interesting names
     const colorList = {
-        red: ['crimson', 'firebrick', 'salmon'],
-        pink: ['fuchsia', 'deeppink'],
-        orange: ['coral', 'tomato'],
-        yellow: ['lemonchiffon', 'lightgoldenrodyellow'],
+        red: ['crimson', 'firebrick', 'salmon', 'indianred', 'maroon'],
+        pink: ['fuchsia', 'deeppink', 'hotpink'],
+        orange: ['coral', 'tomato', 'gold'],
+        yellow: ['lemonchiffon', 'lightgoldenrodyellow', 'khaki'],
         purple: ['rebeccapurple', 'lavender', 'thistle', 'slateblue'],
         green: ['forestgreen', 'olive', 'springgreen'],
         blue: ['aquamarine', 'steelblue', 'powderblue', 'dodgerblue', 'royalblue', 'navy', 'midnightblue'],

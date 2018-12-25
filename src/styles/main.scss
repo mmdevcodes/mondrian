@@ -24,8 +24,19 @@ h1, h2, h3, h4, h5, h6 {
 	margin: -1px; padding: 0; border: 0;
 }
 
-#canvas-screenshot {
-    max-width: 80vw;
+#canvas-screenshot,
+#img-screenshot,
+#canvas-effects {
+	// max-width: 80vw;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	& ~ * {
+		display: none;
+	}
 }
 
 @media (min-width: $breakpoint) {
