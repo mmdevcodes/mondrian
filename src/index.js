@@ -47,6 +47,10 @@ window.addEventListener('DOMContentLoaded', (e) => {
     inputPrimaryBlocks.value = primaryBlocks;
 });
 
+window.addEventListener('resize', function (params) {
+    setupArea(blocksSection, blocksLayout);
+});
+
 // Event handler for changing total amount of blocks
 const totalBlocksHandler = (e) => {
     const target = e.target;

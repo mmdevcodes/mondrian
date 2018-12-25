@@ -72,7 +72,7 @@ export function getRandomColor(colors) {
 export function newRandomColor() {
     // Throwing in some interesting names
     const colors = ['rebeccapurple', 'aquamarine', 'forestgreen', 'lavender', 'honeydew', 'aliceblue', 'firebrick', 'lightgoldenrodyellow', 'thistle', 'whitesmoke', 'navajowhite', 'gainsboro', 'peru', 'crimson', 'fuchsia', 'salmon', 'seashell', 'sienna', 'slategray', 'turquoise', 'indigo', 'gold', 'dodgerblue'];
-    const colorIndex = getRandomInt(0, colors.length);
+    const colorIndex = getRandomInt(0, colors.length - 1);
 
     return colors[colorIndex];
 }
@@ -93,3 +93,24 @@ export function scaleContent(el, availableWidth, availableHeight, contentWidth, 
 
     el.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }
+
+/**
+ * Limit the rate of a function
+ * @param {Function} func
+ * @param {Number} wait
+ * @param {Boolean} immediate
+ */
+export function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};

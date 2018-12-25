@@ -1,11 +1,12 @@
 .settings-section {
-    transition: all $trans-time-short $trans-ease;
-    height: 100%;
+    position: relative;
     background: $darkgray-alt;
     padding: 1rem;
     color: $white;
+    height: 100%;
     flex: 1 1 auto;
     overflow-y: auto;
+    transition: all $trans-time-short $trans-ease;
 }
 
 .settings-top {
@@ -24,6 +25,8 @@
         padding: 0;
 
         legend {
+            display: block;
+            text-align: left !important; // Chrome fix
             color: $white;
             margin: 0 0 14px;
             text-align: center;
@@ -140,6 +143,7 @@
     img {
         width: 100%;
         height: 100%;
+        pointer-events: none; // Prevent Chrome from targeting this
     }
 }
 
