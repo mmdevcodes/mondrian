@@ -5,7 +5,7 @@ import sizeAllBlocks from './js/sizeAllBlocks';
 import setupArea from './js/setupArea';
 import setupColors from './js/setupColors';
 import { checkMaxMin, newRandomColor } from './js/utils';
-import effects from './js/effects';
+import filters from './js/filters';
 import html2canvas from 'html2canvas';
 
 // Selectors
@@ -21,7 +21,12 @@ export const colorSettings = document.getElementById('settings-color');
 export const generateColors = document.getElementById('generate-colors');
 export const generateSizes = document.getElementById('generate-sizes');
 export const generateAll = document.getElementById('generate-all');
-export const addEffects = document.getElementById('add-effects');
+export const addFilters = document.getElementById('add-filters');
+export const filterSettings = document.getElementById('filters-settings');
+export const filterRows = document.getElementById('filters-row');
+export const goBackBtn = document.getElementById('go-back');
+export const downloadBtn = document.getElementById('download');
+
 
 // Variables
 export let totalBlocks = 100;
@@ -116,8 +121,8 @@ generateAll.addEventListener('click', (e) => {
     });
 });
 
-// Button to add effects
-addEffects.addEventListener('click', e => {
+// Button to add filters
+addFilters.addEventListener('click', e => {
     html2canvas(blocksLayout, {
         logging: false,
         width: resolution[0],
@@ -130,7 +135,7 @@ addEffects.addEventListener('click', e => {
         }
     })
     .then(canvas => {
-        effects(canvas);
+        filters(canvas);
     })
     .catch(error => console.error(error));
 });

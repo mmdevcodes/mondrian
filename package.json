@@ -40,6 +40,7 @@
     "eslint-loader": "^2.1.1",
     "favicons-webpack-plugin": "0.0.9",
     "file-loader": "^1.1.11",
+    "file-saver": "^2.0.0",
     "gh-pages": "^2.0.1",
     "glfx": "0.0.4",
     "html-critical-webpack-plugin": "^2.1.0",

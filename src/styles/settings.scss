@@ -19,15 +19,10 @@
 }
 
 .settings-form {
-    position: relative;
-    opacity: 0;
-    max-height: 0%;
-    overflow: hidden;
-    transition: all $trans-time $trans-ease;
+    display: none;
 
     &.active {
-        max-height: 100%;
-        opacity: 1;
+        display: block;
     }
 
     fieldset {
@@ -123,13 +118,29 @@
         cursor: pointer;
         transition: all $trans-time-short $trans-ease;
 
-        &.alt {
+        &.primary {
             background: $green;
             border-color: $green;
 
             &:hover,
             &:focus {
                 background: $green-light;
+                border-color: $white;
+            }
+        }
+
+        &:hover,
+        &:focus {
+            border-color: $white;
+        }
+
+        &.alert {
+            background: $red;
+            border-color: $red;
+
+            &:hover,
+            &:focus {
+                background: $red-light;
                 border-color: $white;
             }
         }
