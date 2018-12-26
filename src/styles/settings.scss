@@ -19,6 +19,17 @@
 }
 
 .settings-form {
+    position: relative;
+    opacity: 0;
+    max-height: 0%;
+    overflow: hidden;
+    transition: all $trans-time $trans-ease;
+
+    &.active {
+        max-height: 100%;
+        opacity: 1;
+    }
+
     fieldset {
         border: none;
         margin: 0 0 30px;
@@ -64,7 +75,8 @@
     }
 
     input[type="text"],
-    input[type="number"] {
+    input[type="number"],
+    input[type="range"] {
         width: 100%;
         max-width: 100%;
         border: 1px solid $gray;
@@ -90,6 +102,11 @@
         &::-webkit-outer-spin-button {
               -webkit-appearance: none;
         }
+    }
+
+    input[type="range"] {
+        background: none;
+        border: none;
     }
 
     button {

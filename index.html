@@ -19,10 +19,10 @@
                 </a>
                 <h1 class="visually-hidden">Mondrian Layout with CSS and JS</h1>
             </div>
-            <form class="settings-form" id="settings">
+            <form class="settings-form active" id="grid-settings">
                 <fieldset>
                     <legend class="settings-header">Parameters</legend>
-                    <table id="parameters">
+                    <table>
                         <tr>
                             <td><label for="total-blocks">Total Blocks<br><small>(Max 999)</small></label></td>
                             <td><input id="total-blocks" type="number" min="1" max="999"></td>
@@ -50,6 +50,12 @@
                     <button id="generate-sizes" type="button">Regenerate Sizes</button>
                     <button id="generate-all" type="button">Regenerate Size & Color</button>
                     <button class="alt" id="add-effects" type="button">Add Effects <small>(WIP)</small></button>
+                </fieldset>
+            </form>
+            <form class="settings-form" id="effects-settings">
+                <fieldset>
+                    <legend class="settings-header">Effects</legend>
+                    <div id="effects-row"></div>
                 </fieldset>
             </form>
         </div>

@@ -5,14 +5,15 @@ import sizeAllBlocks from './js/sizeAllBlocks';
 import setupArea from './js/setupArea';
 import setupColors from './js/setupColors';
 import { checkMaxMin, newRandomColor } from './js/utils';
+import effects from './js/effects';
 import html2canvas from 'html2canvas';
-import glfx from 'glfx';
 
 // Selectors
 export const main = document.querySelector('.main');
 export const blocksSection = document.querySelector('.blocks-section');
 export const blocksLayout = document.querySelector('.blocks-layout');
 export const blocksGrid = document.querySelector('.blocks-grid');
+export const gridSettings = document.getElementById('grid-settings');
 export const inputTotalBlocks = document.getElementById('total-blocks');
 export const inputBlockSize = document.getElementById('block-size');
 export const inputPrimaryBlocks = document.getElementById('primary-blocks');
@@ -118,6 +119,7 @@ generateAll.addEventListener('click', (e) => {
 // Button to add effects
 addEffects.addEventListener('click', e => {
     html2canvas(blocksLayout, {
+        logging: false,
         width: resolution[0],
         height: resolution[1],
         onclone: html => {
@@ -128,13 +130,7 @@ addEffects.addEventListener('click', e => {
         }
     })
     .then(canvas => {
-        const fxCanvas = glfx.canvas();
-        const texture = fxCanvas.texture(canvas);
-
-        fxCanvas.id = 'canvas-effects';
-        fxCanvas.draw(texture).update();
-        // fxCanvas.draw(texture).brightnessContrast(0.5, 0.5).update();
-        blocksLayout.prepend(fxCanvas);
+        effects(canvas);
     })
     .catch(error => console.error(error));
 });
