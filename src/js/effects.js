@@ -1,82 +1,94 @@
 import { blocksLayout, gridSettings } from "../index";
 import glfx from 'glfx';
+import { html, render } from 'lit-html';
 
 const effectsSettings = document.getElementById('effects-settings');
 const effectsRows = document.getElementById('effects-row');
+let fxCanvas;
+let fxTexture;
 
-function Filter(name, func, init, update, imageFile) {
-    this.name = name;
-    this.func = func;
-    this.update = update;
-    this.imageFile = imageFile;
-    this.sliders = [];
-    this.nubs = [];
+class Filter {
+    constructor(name, func, init, update) {
+        this.name = name;
+        this.func = func;
+        this.init = init;
+        this.update = update;
+        this.sliders = [];
 
-    init.call(this);
-}
+        init.call(this);
+    }
 
-Filter.prototype.addNub = function(name, x, y) {
-    this.nubs.push({ name: name, x: x, y: y });
-};
+    addSlider(name, label, min, max, value, step) {
+        this.sliders.push({ name: name, label: label, min: min, max: max, value: value, step: step });
+    };
 
-Filter.prototype.addSlider = function(name, label, min, max, value, step) {
-    this.sliders.push({ name: name, label: label, min: min, max: max, value: value, step: step });
-};
-
-Filter.prototype.use = function(canvas, texture, id) {
-    // Add a setting row for each slider
-    for (let i = 0; i < this.sliders.length; i++) {
-        const slider = this.sliders[i];
-        const range = document.createElement('input');
-        const markup = `
-            <div class="field">
-                <label for="${slider.name}">${slider.label}</label>
-            </div>
-        `;
-        effectsRows.insertAdjacentHTML('afterbegin', markup);
-
-
-        // Event listener for updating canvas area
+    use() {
         const onChange = e => {
             const target = e.target;
             const value = target.value;
+            const id = target.id;
 
-            this[slider.name] = value;
-            this.update(canvas, texture);
+            this[id] = value;
+            this.update();
+            console.log(fxTexture);
         };
 
-        // Setup input
-        range.id = id;
-        range.min = slider.min;
-        range.max = slider.max;
-        range.value = slider.value;
-        range.step = slider.step;
-        range.type = 'range';
-        range.addEventListener('change', onChange);
-        range.addEventListener('input', onChange);
+        const setValue = (slider) => {
+            this[slider.name] = slider.value;
+        };
 
-        // Add to DOM
-        document.querySelector(`[for="${slider.name}"]`).insertAdjacentElement('afterend', range);
+        const fieldCategory = document.createElement('div');
 
-        this[slider.name] = slider.value;
+        const myHtml = html`
+            ${this.sliders.map(slider => {
+                return html`
+                    <div class="field">
+                        <label for="${slider.name}">${slider.label}</label>
+                        <input
+                            type="range"
+                            id="${slider.name}"
+                            min="${slider.min}"
+                            max="${slider.max}"
+                            value="${slider.value}"
+                            step="${slider.step}"
+                            @change=${onchange}
+                            @input=${onChange}
+                        >
+                    </div>
+                    ${setValue(slider)}
+                `;
+            })}
+        `;
+
+        render(myHtml, fieldCategory);
+        fieldCategory.classList.add('field-category');
+        effectsRows.insertAdjacentElement('afterbegin', fieldCategory);
+
+        // Update the canvas once the settings are loaded
+        this.update();
     }
+}
 
-    // Update the canvas once the settings are loaded
-    this.update(canvas, texture);
-};
-
-var filters = [
+const filters = [
     new Filter('Brightness / Contrast', 'brightnessContrast', function() {
         this.addSlider('brightness', 'Brightness', -1, 1, 0, 0.01);
         this.addSlider('contrast', 'Contrast', -1, 1, 0, 0.01);
-    }, function(canvas, texture) {
-        canvas.draw(texture).brightnessContrast(this.brightness, this.contrast).update();
-    })
+    }, function() {
+        fxCanvas.draw(fxTexture).brightnessContrast(this.brightness, this.contrast).update();
+        fxTexture = fxCanvas.texture(fxCanvas);
+    }),
+    new Filter('Hue / Saturation', 'hueSaturation', function() {
+        this.addSlider('hue', 'Hue', -1, 1, 0, 0.01);
+        this.addSlider('saturation', 'Saturation', -1, 1, 0, 0.01);
+    }, function() {
+        fxCanvas.draw(fxTexture).hueSaturation(this.hue, this.saturation).update();
+        fxTexture = fxCanvas.texture(fxCanvas);
+    }),
 ];
 
 export default function effects(canvas) {
-    const fxCanvas = glfx.canvas();
-    const texture = fxCanvas.texture(canvas);
+    fxCanvas = glfx.canvas();
+    fxTexture = fxCanvas.texture(canvas);
 
     // Changing settings mode
     gridSettings.classList.remove('active');
@@ -84,11 +96,11 @@ export default function effects(canvas) {
 
     // Loading up a canvas
     fxCanvas.id = 'canvas-effects';
-    fxCanvas.draw(texture).update();
+    fxCanvas.draw(fxTexture).update();
 
     // For each type of filter add settings and hook up to canvas
     for (let i = 0; i < filters.length; i++) {
-        filters[i].use(fxCanvas, texture, filters[i].func);
+        filters[i].use();
     }
 
     // Add canvas to DOM
