@@ -23,6 +23,11 @@ const allFilters = [
         fxSettings.setBrightness(this.brightness);
         fxSettings.setContrast(this.contrast);
     }),
+    new Filter('Vibrance', 'vibrance', function() {
+        this.addSlider('vibrance', 'Vibrance', -1, 1, 0, 0.01);
+    }, function() {
+        fxSettings.setVibrance(this.vibrance);
+    }),
 ];
 
 const goBackListener = (e) => {
