@@ -1,7 +1,7 @@
 import { blocksLayout, gridSettings, filterSettingsForm, filterRows, goBackBtn, downloadBtn } from "../index";
 import { fixedToDataURL } from "./utils";
 import FilterSettings from "./filterSettings";
-import glfx from 'glfx';
+import glfx from 'glfx-es6';
 import { html, render } from 'lit-html';
 import saveAs from "file-saver";
 
@@ -88,7 +88,7 @@ const allFilters = [
 ];
 
 const downloadListener = (e) => {
-    const data = fixedToDataURL(fxCanvas, fxTexture);
+    const data = fxCanvas.toDataURL('image/png');
     saveAs(data, 'mondrian.png', true);
 };
 

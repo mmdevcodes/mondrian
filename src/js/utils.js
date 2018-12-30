@@ -160,37 +160,3 @@ export function debounce(func, wait, immediate) {
 export function isBetween(x, min, max) {
     return x >= min && x <= max;
 }
-
-/**
- * toDataURL() is broke on glfx's canvas and the author removed it
- * from his library for some reason so i'm adding it back in.
- */
-export function fixedToDataURL(canvas, texture) {
-    let gl = canvas.getContext('webgl');
-
-    function getPixelArray() {
-        var w = texture._.width;
-        var h = texture._.height;
-        var array = new Uint8Array(w * h * 4);
-        texture._.drawTo(function() {
-            gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, array);
-        });
-
-        return array;
-    }
-
-    let w = texture._.width;
-    let h = texture._.height;
-    let array = getPixelArray(texture);
-    let canvas2d = document.createElement('canvas');
-    let c = canvas2d.getContext('2d');
-    canvas2d.width = w;
-    canvas2d.height = h;
-    let data = c.createImageData(w, h);
-    for (let i = 0; i < array.length; i++) {
-        data.data[i] = array[i];
-    }
-    c.putImageData(data, 0, 0);
-
-    return canvas2d.toDataURL('image/png');
-}
