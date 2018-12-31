@@ -2,7 +2,7 @@ import './styles/index.scss';
 import colorBlock from './js/colorBlock';
 import setBlocks from './js/setBlocks';
 import sizeAllBlocks from './js/sizeAllBlocks';
-import setupArea from './js/setupArea';
+import Area from './js/area';
 import setupColors from './js/setupColors';
 import { checkMaxMin, newRandomColor } from './js/utils';
 import filters from './js/addEffects';
@@ -26,6 +26,8 @@ export const filterSettingsForm = document.getElementById('filters-settings');
 export const filterRows = document.getElementById('filters-row');
 export const goBackBtn = document.getElementById('go-back');
 export const downloadBtn = document.getElementById('download');
+export const resolution = [1920, 1080];
+export const blocksArea = new Area(blocksSection, blocksLayout);
 
 
 // Variables
@@ -38,10 +40,8 @@ export let colors = {
     color2: newRandomColor('gray'),
     color3: newRandomColor()
 };
-export let resolution = [1920, 1080];
 
 // Initialize
-setupArea(blocksSection, blocksLayout);
 setupColors(colorSettings);
 setBlocks(totalBlocks, blocksGrid)
     .then(generated => sizeAllBlocks(generated))
@@ -52,10 +52,6 @@ window.addEventListener('DOMContentLoaded', (e) => {
     inputTotalBlocks.value = totalBlocks;
     inputBlockSize.value = blockSize;
     inputPrimaryBlocks.value = primaryBlocks;
-});
-
-window.addEventListener('resize', function (params) {
-    setupArea(blocksSection, blocksLayout);
 });
 
 // Event handler for changing total amount of blocks

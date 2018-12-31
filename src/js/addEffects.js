@@ -28,9 +28,18 @@ const allFilters = [
     }, function() {
         fxSettings.setVibrance(this.vibrance);
     }),
+    new Filter('Tilt Shift', 'tiltShift', function() {
+        this.addNub('start', 0.15, 0.75);
+        // this.addNub('end', 0.75, 0.6);
+        this.addSlider('blurRadius', 'Blur Radius', 0, 50, 15, 1);
+        this.addSlider('gradientRadius', 'Gradient Radius', 0, 400, 200, 1);
+    }, function() {
+        fxSettings.setTiltBlur(this.blurRadius);
+        fxSettings.setTiltGradient(this.gradientRadius);
+    }),
 ];
 
-const goBackListener = (e) => {
+const goBackListener = e => {
     // Remove all filter settings
     while (filterRows.lastChild) {
         filterRows.removeChild(filterRows.lastChild);
@@ -44,7 +53,7 @@ const goBackListener = (e) => {
     fxCanvas.remove();
 };
 
-const downloadListener = (e) => {
+const downloadListener = e => {
     const data = fxCanvas.toDataURL('image/png');
     saveAs(data, 'mondrian.png', true);
 };

@@ -1,4 +1,5 @@
 import { isBetween } from "./utils";
+import { statSync } from "fs";
 
 export default class FilterSettings {
     constructor(canvas, texture) {
@@ -12,6 +13,14 @@ export default class FilterSettings {
         this.vgnteSize = 0;
         this.vgnteAmnt = 0;
         this.vibrance = 0;
+
+        // Tilt Shift
+        this.tiltStartX = 0;
+        this.tiltStartY = 0;
+        this.tiltEndX = 0;
+        this.tiltEndY = 0;
+        this.tiltBlurRadius = 0;
+        this.tiltGradientRadius = 0;
     }
 
     setHue(val) {
@@ -54,6 +63,24 @@ export default class FilterSettings {
         this.update();
     }
 
+    setTiltCoord(startX, startY, endX, endY) {
+        this.tiltStartX = startX;
+        this.tiltStartY = startY;
+        this.tiltEndX = endX;
+        this.tiltEndY = endY;
+        this.update();
+    }
+
+    setTiltBlur(val) {
+        this.tiltBlurRadius = val;
+        this.update();
+    }
+
+    setTiltGradient(val) {
+        this.tiltGradientRadius = val;
+        this.update();
+    }
+
     // Update the values if the values are modified
     update() {
         this.canvas.draw(this.texture);
@@ -68,11 +95,20 @@ export default class FilterSettings {
             this.canvas.hueSaturation(this.hue, this.saturation);
         }
 
-        if (this.sepia > 0) this.canvas.sepia(this.sepia);
+        // Sepia
+        if (isBetween(this.sepia, 0, 1)) {
+            this.canvas.sepia(this.sepia);
+        }
 
-        if (this.vgnteSize > 0 || this.vgnteAmnt > 0)
-        this.canvas.vignette(this.vgnteSize, this.vgnteAmnt);
-        if (this.vibrance > -1.1) this.canvas.vibrance(this.vibrance);
+        // Vignette
+        if (isBetween(this.vgnteSize, 0, 1) || isBetween(this.vgnteAmnt, 0, 1)) {
+            this.canvas.vignette(this.vgnteSize, this.vgnteAmnt);
+        }
+
+        // Vibrance
+        if (isBetween(this.vibrance, -1, 1)) {
+            this.canvas.vibrance(this.vibrance);
+        }
 
         this.canvas.update();
     }

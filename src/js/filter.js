@@ -1,5 +1,6 @@
 import { html, render } from 'lit-html';
 import { filterRows } from "../index";
+import draggable from "./draggable";
 
 export default class Filter {
     constructor(name, func, init, update) {
@@ -7,6 +8,7 @@ export default class Filter {
         this.func = func;
         this.init = init;
         this.update = update;
+        this.nubs = [];
         this.sliders = [];
 
         init.call(this);
@@ -16,8 +18,12 @@ export default class Filter {
         this.sliders.push({ name: name, label: label, min: min, max: max, value: value, step: step });
     };
 
+    addNub(name, x, y) {
+        this.nubs.push({ name: name, x: x, y: y });
+    };
+
     use() {
-        const onChange = e => {
+        const sliderOnChange = e => {
             const target = e.target;
             const value = target.value;
             const id = target.id;
@@ -26,14 +32,14 @@ export default class Filter {
             this.update();
         };
 
-        const setValue = (slider) => {
+        const sliderSetValue = (slider) => {
             this[slider.name] = slider.value;
         };
 
         const fieldCategory = document.createElement('div');
 
-        // Creating markup
-        const myHtml = html`
+        // Slider HTML markup and repeated rows for each filter section
+        const sliderHtml = html`
             ${this.sliders.map(slider => {
                 return html`
                     <div class="field">
@@ -46,16 +52,28 @@ export default class Filter {
                             value="${slider.value}"
                             step="${slider.step}"
                             @change=${onchange}
-                            @input=${onChange}
+                            @input=${sliderOnChange}
                         >
                     </div>
-                    ${setValue(slider)}
+                    ${sliderSetValue(slider)}
                 `;
             })}
         `;
 
+
+
+        // Nubs HTML markup with each dot for filter coordinates
+        this.nubs.forEach(nub => {
+            const dragBlock = document.getElementById('draggable');
+            const nubHtml = document.createElement('div');
+            nubHtml.classList.add('nub');
+            dragBlock.insertAdjacentElement('afterbegin', nubHtml);
+
+            draggable(nubHtml, dragBlock);
+        });
+
         // Render everything to the DOM
-        render(myHtml, fieldCategory);
+        render(sliderHtml, fieldCategory);
         fieldCategory.classList.add('field-category');
         filterRows.insertAdjacentElement('afterbegin', fieldCategory);
 
