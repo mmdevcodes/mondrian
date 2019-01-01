@@ -15,24 +15,15 @@ export default class Filter {
     }
 
     addSlider(name, label, min, max, value, step) {
-        this.sliders.push({ name: name, label: label, min: min, max: max, value: value, step: step });
+        this.sliders.push({ name, label, min, max, value, step });
     };
 
     addNub(name, x, y) {
-        this.nubs.push({ name: name, x: x, y: y });
+        this.nubs.push({ name, x, y });
     };
 
     use() {
         const sliderListener = e => {
-            const target = e.target;
-            const value = target.value;
-            const id = target.id;
-
-            this[id] = value;
-            this.update();
-        };
-
-        const nubListener = e => {
             const target = e.target;
             const value = target.value;
             const id = target.id;
@@ -75,11 +66,12 @@ export default class Filter {
             const nubHtml = document.createElement('div');
             const x = nub.x * resolution[0];
             const y = nub.y * resolution[1];
-
-            this[nub.name] = {
-                x: nub.x,
-                y: nub.y
+            const nubListener = (x, y) => {
+                this[nub.name] = {x, y};
+                this.update();
             };
+
+            this[nub.name] = {x, y};
 
             // Setup DOM
             nubHtml.classList.add('nub');
@@ -87,7 +79,7 @@ export default class Filter {
             dragBlock.insertAdjacentElement('afterbegin', nubHtml);
 
             // Instantiate after adding to DOM since width/height calculations are being done
-            const draggable = new Draggable(nubHtml, dragBlock, x, y);
+            const draggable = new Draggable(nubHtml, dragBlock, x, y, nubListener);
         });
 
         // Render everything to the DOM

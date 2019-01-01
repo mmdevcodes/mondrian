@@ -1,5 +1,4 @@
 import { isBetween } from "./utils";
-import { statSync } from "fs";
 
 export default class FilterSettings {
     constructor(canvas, texture) {
@@ -23,66 +22,66 @@ export default class FilterSettings {
         this.tiltGradientRadius = 0;
     }
 
-    setHue(val) {
-        this.hue = val;
+    setHue = val => {
+        this.hue = Number(val);
         this.update();
     }
 
-    setSaturation(val) {
-        this.saturation = val;
+    setSaturation = val => {
+        this.saturation = Number(val);
         this.update();
     }
 
-    setSepia(val) {
-        this.sepia = val;
+    setSepia = val => {
+        this.sepia = Number(val);
         this.update();
     }
 
-    setBrightness(val) {
-        this.brightness = val;
+    setBrightness = val => {
+        this.brightness = Number(val);
         this.update();
     }
 
-    setContrast(val) {
-        this.contrast = val;
+    setContrast = val => {
+        this.contrast = Number(val);
         this.update();
     }
 
-    setVignetteSize(val) {
-        this.vgnteSize = val;
+    setVignetteSize = val => {
+        this.vgnteSize = Number(val);
         this.update();
     }
 
-    setVignetteAmt(val) {
-        this.vgnteAmnt = val;
+    setVignetteAmt = val => {
+        this.vgnteAmnt = Number(val);
         this.update();
     }
 
-    setVibrance(val) {
-        this.vibrance = val;
+    setVibrance = val => {
+        this.vibrance = Number(val);
         this.update();
     }
 
     setTiltCoord(startX, startY, endX, endY) {
-        this.tiltStartX = startX;
-        this.tiltStartY = startY;
-        this.tiltEndX = endX;
-        this.tiltEndY = endY;
+        this.tiltStartX = Number(startX);
+        this.tiltStartY = Number(startY);
+        this.tiltEndX = Number(endX);
+        this.tiltEndY = Number(endY);
         this.update();
     }
 
-    setTiltBlur(val) {
-        this.tiltBlurRadius = val;
+    setTiltBlur = val => {
+        this.tiltBlurRadius = Number(val);
         this.update();
     }
 
-    setTiltGradient(val) {
-        this.tiltGradientRadius = val;
+    setTiltGradient = val => {
+        this.tiltGradientRadius = Number(val);
         this.update();
     }
 
     // Update the values if the values are modified
-    update() {
+    update = () => {
         this.canvas.draw(this.texture);
 
         // Brightness/Contrast
@@ -108,6 +107,11 @@ export default class FilterSettings {
         // Vibrance
         if (isBetween(this.vibrance, -1, 1)) {
             this.canvas.vibrance(this.vibrance);
+        }
+
+        // Tilt Shift
+        if (isBetween(this.tiltBlurRadius, 0, 50) || isBetween(this.tiltGradientRadius, 0, 1000)) {
+            this.canvas.tiltShift(this.tiltStartX, this.tiltStartY, this.tiltEndX, this.tiltEndY, this.tiltBlurRadius, this.tiltGradientRadius);
         }
 
         this.canvas.update();

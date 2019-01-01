@@ -9,6 +9,21 @@ let fxTexture;
 let fxSettings;
 
 const allFilters = [
+    new Filter('Tilt Shift', 'tiltShift', function() {
+        this.addNub('start', 0.08, 0.48); // Percentages of width/height of resolution
+        this.addNub('end', 0.93, 0.47); // Percentages of width/height of resolution
+        this.addSlider('blurRadius', 'Blur Radius', 0, 50, 23, 1);
+        this.addSlider('gradientRadius', 'Gradient Radius', 0, 1000, 900, 1);
+    }, function() {
+        fxSettings.setTiltCoord(this.start.x, this.start.y, this.end.x, this.end.y);
+        fxSettings.setTiltBlur(this.blurRadius);
+        fxSettings.setTiltGradient(this.gradientRadius);
+    }),
+    new Filter('Vibrance', 'vibrance', function() {
+        this.addSlider('vibrance', 'Vibrance', -1, 1, 0, 0.01);
+    }, function() {
+        fxSettings.setVibrance(this.vibrance);
+    }),
     new Filter('Hue / Saturation', 'hueSaturation', function() {
         this.addSlider('hue', 'Hue', -1, 1, 0, 0.01);
         this.addSlider('saturation', 'Saturation', -1, 1, 0, 0.01);
@@ -22,21 +37,6 @@ const allFilters = [
     }, function() {
         fxSettings.setBrightness(this.brightness);
         fxSettings.setContrast(this.contrast);
-    }),
-    new Filter('Vibrance', 'vibrance', function() {
-        this.addSlider('vibrance', 'Vibrance', -1, 1, 0, 0.01);
-    }, function() {
-        fxSettings.setVibrance(this.vibrance);
-    }),
-    new Filter('Tilt Shift', 'tiltShift', function() {
-        this.addNub('start', 0.15, 0.75);
-        this.addNub('end', 0.75, 0.6);
-        this.addSlider('blurRadius', 'Blur Radius', 0, 50, 15, 1);
-        this.addSlider('gradientRadius', 'Gradient Radius', 0, 400, 200, 1);
-    }, function() {
-        fxSettings.setTiltCoord(this.start.x, this.start.y, this.end.x, this.end.y);
-        fxSettings.setTiltBlur(this.blurRadius);
-        fxSettings.setTiltGradient(this.gradientRadius);
     }),
 ];
 

@@ -1,7 +1,7 @@
-import { blocksArea } from "../index";
+import { blocksArea, resolution } from "../index";
 
 export default class Draggable {
-    constructor(item, outer, initialX, initialY) {
+    constructor(item, outer, initialX, initialY, listener) {
         this.dragItem = item;
         this.dragItemRect = this.dragItem.getBoundingClientRect();
         this.container = outer;
@@ -13,6 +13,7 @@ export default class Draggable {
         this.initialY = initialY;
         this.xOffset = this.containerRect.left;
         this.yOffset = this.containerRect.top;
+        this.itemListener = listener;
 
         this.container.addEventListener("touchstart", this.dragStart, false);
         this.container.addEventListener("touchend", this.dragEnd, false);
@@ -59,14 +60,7 @@ export default class Draggable {
 
             this.setTranslate(this.currentX, this.currentY, this.dragItem);
 
-            console.log(
-                this.currentX,
-                this.currentY,
-                this.initialX,
-                this.initialY,
-                this.xOffset,
-                this.yOffset
-            );
+            this.itemListener(this.currentX, this.currentY);
         }
     }
 
