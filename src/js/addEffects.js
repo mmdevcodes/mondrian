@@ -30,10 +30,11 @@ const allFilters = [
     }),
     new Filter('Tilt Shift', 'tiltShift', function() {
         this.addNub('start', 0.15, 0.75);
-        // this.addNub('end', 0.75, 0.6);
+        this.addNub('end', 0.75, 0.6);
         this.addSlider('blurRadius', 'Blur Radius', 0, 50, 15, 1);
         this.addSlider('gradientRadius', 'Gradient Radius', 0, 400, 200, 1);
     }, function() {
+        fxSettings.setTiltCoord(this.start.x, this.start.y, this.end.x, this.end.y);
         fxSettings.setTiltBlur(this.blurRadius);
         fxSettings.setTiltGradient(this.gradientRadius);
     }),

@@ -1,5 +1,5 @@
 import { html, render } from 'lit-html';
-import { filterRows } from "../index";
+import { filterRows, resolution } from "../index";
 import Draggable from "./draggable";
 
 export default class Filter {
@@ -23,7 +23,7 @@ export default class Filter {
     };
 
     use() {
-        const sliderOnChange = e => {
+        const sliderListener = e => {
             const target = e.target;
             const value = target.value;
             const id = target.id;
@@ -32,7 +32,16 @@ export default class Filter {
             this.update();
         };
 
-        const sliderSetValue = (slider) => {
+        const nubListener = e => {
+            const target = e.target;
+            const value = target.value;
+            const id = target.id;
+
+            this[id] = value;
+            this.update();
+        };
+
+        const sliderSetValue = slider => {
             this[slider.name] = slider.value;
         };
 
@@ -52,7 +61,7 @@ export default class Filter {
                             value="${slider.value}"
                             step="${slider.step}"
                             @change=${onchange}
-                            @input=${sliderOnChange}
+                            @input=${sliderListener}
                         >
                     </div>
                     ${sliderSetValue(slider)}
@@ -60,16 +69,25 @@ export default class Filter {
             })}
         `;
 
-
-
         // Nubs HTML markup with each dot for filter coordinates
         this.nubs.forEach(nub => {
             const dragBlock = document.getElementById('draggable');
             const nubHtml = document.createElement('div');
+            const x = nub.x * resolution[0];
+            const y = nub.y * resolution[1];
+
+            this[nub.name] = {
+                x: nub.x,
+                y: nub.y
+            };
+
+            // Setup DOM
             nubHtml.classList.add('nub');
+            nubHtml.setAttribute('title', nub.name);
             dragBlock.insertAdjacentElement('afterbegin', nubHtml);
 
-            const draggable = new Draggable(nubHtml, dragBlock);
+            // Instantiate after adding to DOM since width/height calculations are being done
+            const draggable = new Draggable(nubHtml, dragBlock, x, y);
         });
 
         // Render everything to the DOM

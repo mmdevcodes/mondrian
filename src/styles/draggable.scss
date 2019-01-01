@@ -9,20 +9,33 @@
 }
 
 .nub {
-    width: 20px;
-    height: 20px;
-    background-color: rgba(168, 218, 220, 1.00);
-    border: 3px solid rgba(136, 136, 136, .5);
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: $white;
+    border: 4px solid $blue;
     border-radius: 50%;
     touch-action: none;
     user-select: none;
 
+    &::before {
+        content: "";
+        position: absolute;
+        width: .5rem;
+        height: .5rem;
+        background: $blue-light;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 100%;
+        cursor: pointer;
+    }
+
     &:active {
-        background-color: rgb(245, 230, 99);
+        border-color: $red-light;
     }
 
     &:hover {
-        cursor: pointer;
-        border-width: 4px;
+        border-width: 5px;
     }
 }

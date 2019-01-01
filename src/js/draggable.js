@@ -1,7 +1,7 @@
 import { blocksArea } from "../index";
 
 export default class Draggable {
-    constructor(item, outer) {
+    constructor(item, outer, initialX, initialY) {
         this.dragItem = item;
         this.dragItemRect = this.dragItem.getBoundingClientRect();
         this.container = outer;
@@ -9,8 +9,8 @@ export default class Draggable {
         this.active = false;
         this.currentX;
         this.currentY;
-        this.initialX;
-        this.initialY;
+        this.initialX = initialX;
+        this.initialY = initialY;
         this.xOffset = this.containerRect.left;
         this.yOffset = this.containerRect.top;
 
@@ -21,6 +21,8 @@ export default class Draggable {
         this.container.addEventListener("mousedown", this.dragStart, false);
         this.container.addEventListener("mouseup", this.dragEnd, false);
         this.container.addEventListener("mousemove", this.drag, false);
+
+        this.setTranslate(this.initialX, this.initialY, this.dragItem);
     }
 
     dragStart = e => {
@@ -28,8 +30,8 @@ export default class Draggable {
             this.initialX = e.touches[0].clientX - this.containerRect.left;
             this.initialY = e.touches[0].clientY - this.containerRect.top;
         } else {
-            this.initialX = e.clientX - this.containerRect.left;
-            this.initialY = e.clientY - this.containerRect.top;
+            this.initialX = this.initialX || e.clientX - this.containerRect.left;
+            this.initialY = this.initialY || e.clientY - this.containerRect.top;
         }
 
         if (e.target === this.dragItem) {
@@ -47,15 +49,24 @@ export default class Draggable {
             } else {
                 this.currentX = e.clientX - this.containerRect.left;
                 this.currentY = e.clientY - this.containerRect.top;
-
-                this.currentX = this.currentX * (1 / blocksArea.scale) - (this.dragItemRect.width / 2);
-                this.currentY = this.currentY * (1 / blocksArea.scale) - (this.dragItemRect.height / 2);
             }
+
+            this.currentX = this.currentX * (1 / blocksArea.scale) - (this.dragItemRect.width / 2);
+            this.currentY = this.currentY * (1 / blocksArea.scale) - (this.dragItemRect.height / 2);
 
             this.xOffset = this.currentX;
             this.yOffset = this.currentY;
 
             this.setTranslate(this.currentX, this.currentY, this.dragItem);
+
+            console.log(
+                this.currentX,
+                this.currentY,
+                this.initialX,
+                this.initialY,
+                this.xOffset,
+                this.yOffset
+            );
         }
     }
 
