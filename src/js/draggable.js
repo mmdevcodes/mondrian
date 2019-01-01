@@ -1,67 +1,72 @@
 import { blocksArea } from "../index";
 
-export default function (item, outer) {
-    let dragItem = item;
-    let container = outer;
+export default class Draggable {
+    constructor(item, outer) {
+        this.dragItem = item;
+        this.dragItemRect = this.dragItem.getBoundingClientRect();
+        this.container = outer;
+        this.containerRect = this.container.getBoundingClientRect();
+        this.active = false;
+        this.currentX;
+        this.currentY;
+        this.initialX;
+        this.initialY;
+        this.xOffset = this.containerRect.left;
+        this.yOffset = this.containerRect.top;
 
-    let active = false;
-    let currentX;
-    let currentY;
-    let initialX;
-    let initialY;
-    let xOffset = 0;
-    let yOffset = 0;
+        this.container.addEventListener("touchstart", this.dragStart, false);
+        this.container.addEventListener("touchend", this.dragEnd, false);
+        this.container.addEventListener("touchmove", this.drag, false);
 
-    container.addEventListener("touchstart", dragStart, false);
-    container.addEventListener("touchend", dragEnd, false);
-    container.addEventListener("touchmove", drag, false);
-
-    container.addEventListener("mousedown", dragStart, false);
-    container.addEventListener("mouseup", dragEnd, false);
-    container.addEventListener("mousemove", drag, false);
-
-    function dragStart(e) {
-      if (e.type === "touchstart") {
-        initialX = e.touches[0].clientX - xOffset;
-        initialY = e.touches[0].clientY - yOffset;
-      } else {
-        initialX = e.clientX - xOffset;
-        initialY = e.clientY - yOffset;
-      }
-
-      if (e.target === dragItem) {
-        active = true;
-      }
+        this.container.addEventListener("mousedown", this.dragStart, false);
+        this.container.addEventListener("mouseup", this.dragEnd, false);
+        this.container.addEventListener("mousemove", this.drag, false);
     }
 
-    function dragEnd(e) {
-      initialX = currentX;
-      initialY = currentY;
-
-      active = false;
-    }
-
-    function drag(e) {
-      if (active) {
-
-        e.preventDefault();
-
-        if (e.type === "touchmove") {
-          currentX = e.touches[0].clientX - initialX;
-          currentY = e.touches[0].clientY - initialY;
+    dragStart = e => {
+        if (e.type === "touchstart") {
+            this.initialX = e.touches[0].clientX - this.containerRect.left;
+            this.initialY = e.touches[0].clientY - this.containerRect.top;
         } else {
-          currentX = e.clientX - initialX;
-          currentY = e.clientY - initialY;
+            this.initialX = e.clientX - this.containerRect.left;
+            this.initialY = e.clientY - this.containerRect.top;
         }
 
-        xOffset = currentX;
-        yOffset = currentY;
-
-        setTranslate(currentX, currentY, dragItem);
-      }
+        if (e.target === this.dragItem) {
+            this.active = true;
+        }
     }
 
-    function setTranslate(xPos, yPos, el) {
-      el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    drag = e => {
+        if (this.active) {
+            e.preventDefault();
+
+            if (e.type === "touchmove") {
+                this.currentX = e.touches[0].clientX - this.containerRect.left;
+                this.currentY = e.touches[0].clientY - this.containerRect.top;
+            } else {
+                this.currentX = e.clientX - this.containerRect.left;
+                this.currentY = e.clientY - this.containerRect.top;
+
+                this.currentX = this.currentX * (1 / blocksArea.scale) - (this.dragItemRect.width / 2);
+                this.currentY = this.currentY * (1 / blocksArea.scale) - (this.dragItemRect.height / 2);
+            }
+
+            this.xOffset = this.currentX;
+            this.yOffset = this.currentY;
+
+            this.setTranslate(this.currentX, this.currentY, this.dragItem);
+        }
+    }
+
+    dragEnd = e => {
+        this.initialX = this.currentX;
+        this.initialY = this.currentY;
+
+        this.active = false;
+    }
+
+    setTranslate = (xPos, yPos, el) => {
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
     }
 }

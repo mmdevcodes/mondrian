@@ -1,6 +1,6 @@
 import { html, render } from 'lit-html';
 import { filterRows } from "../index";
-import draggable from "./draggable";
+import Draggable from "./draggable";
 
 export default class Filter {
     constructor(name, func, init, update) {
@@ -69,7 +69,7 @@ export default class Filter {
             nubHtml.classList.add('nub');
             dragBlock.insertAdjacentElement('afterbegin', nubHtml);
 
-            draggable(nubHtml, dragBlock);
+            const draggable = new Draggable(nubHtml, dragBlock);
         });
 
         // Render everything to the DOM

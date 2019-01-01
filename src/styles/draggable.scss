@@ -11,14 +11,14 @@
 .nub {
     width: 20px;
     height: 20px;
-    background-color: rgb(245, 230, 99);
+    background-color: rgba(168, 218, 220, 1.00);
     border: 3px solid rgba(136, 136, 136, .5);
     border-radius: 50%;
     touch-action: none;
     user-select: none;
 
     &:active {
-        background-color: rgba(168, 218, 220, 1.00);
+        background-color: rgb(245, 230, 99);
     }
 
     &:hover {
