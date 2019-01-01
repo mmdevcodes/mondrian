@@ -1,12 +1,11 @@
 import sizeBlock from './sizeBlock';
 import { getColumnSpan, getRandomInt, getRowSpan } from './utils';
-import { primaryBlocks, totalBlocks, blockSize } from '../index';
 
 /**
  * Size a collection of blocks
  * @param {NodeList} blocks
  */
-export default function sizeAllBlocks(blocks) {
+export default function sizeAllBlocks(blocks, blockSize, primaryBlocks, totalBlocks) {
     let primaryBlockSet = [];
     let primaryBlocksTotal = primaryBlocks;
 
@@ -27,7 +26,7 @@ export default function sizeAllBlocks(blocks) {
         primaryBlockSet = [...primaryBlockSet, primaryIndex];
     }
 
-    blocks.forEach((block, index) => {
+    [...blocks].forEach((block, index) => {
         /**
          * If this block's index is in the primary block array
          *  then use the maximum size and exit the function.

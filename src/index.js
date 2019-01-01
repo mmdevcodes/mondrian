@@ -1,6 +1,5 @@
 import './styles/index.scss';
 import colorBlock from './js/colorBlock';
-import setBlocks from './js/setBlocks';
 import sizeAllBlocks from './js/sizeAllBlocks';
 import Area from './js/area';
 import setupColors from './js/setupColors';
@@ -30,7 +29,7 @@ export const goBackBtn = document.getElementById('go-back');
 export const downloadBtn = document.getElementById('download');
 
 // Variables
-export let totalBlocks = 100;
+export let totalBlocks = 150;
 export let primaryBlocks = 5;
 export let blockSize = 3;
 export let colors = {
@@ -41,21 +40,26 @@ export let colors = {
 };
 export let resolution = [1920, 1080];
 
-
 // Initialize
-export const blocksArea = new Area(blocksSection, blocksLayout, resolution);
+export const blocksArea = new Area(
+    blocksSection,
+    blocksLayout,
+    blocksGrid,
+    resolution,
+    totalBlocks,
+    colors,
+    blockSize,
+    primaryBlocks
+);
 setupColors(colorSettings);
-setBlocks(totalBlocks, blocksGrid)
-    .then(generated => sizeAllBlocks(generated))
-    .catch(error => console.error(error));
 
 // Event listeners
 window.addEventListener('DOMContentLoaded', (e) => {
-    inputTotalBlocks.value = totalBlocks;
-    inputBlockSize.value = blockSize;
-    inputPrimaryBlocks.value = primaryBlocks;
-    resolutionWidth.value = resolution[0];
-    resolutionHeight.value = resolution[1];
+    inputTotalBlocks.value = blocksArea.totalBlocks;
+    inputBlockSize.value = blocksArea.blockSize;
+    inputPrimaryBlocks.value = blocksArea.primaryBlocks;
+    resolutionWidth.value = blocksArea.resolution[0];
+    resolutionHeight.value = blocksArea.resolution[1];
 });
 
 // Event handler for changing total amount of blocks
@@ -64,10 +68,8 @@ const totalBlocksHandler = (e) => {
     const max = target.max;
     let value = target.value;
 
-    totalBlocks = checkMaxMin(value, max, undefined, target);
-    setBlocks(totalBlocks, blocksGrid)
-        .then(generated => sizeAllBlocks(generated))
-        .catch(error => console.error(error));
+    blocksArea.totalBlocks = checkMaxMin(value, max, undefined, target);
+    blocksArea.setBlocks();
 };
 
 inputTotalBlocks.addEventListener('change', totalBlocksHandler);
@@ -80,8 +82,8 @@ const blockSizeHandler = (e) => {
     const max = target.max;
     const min = target.min;
 
-    blockSize = checkMaxMin(value, max, min, target);
-    sizeAllBlocks(blocksGrid.querySelectorAll('li'));
+    blocksArea.blockSize = checkMaxMin(value, max, min, target);
+    sizeAllBlocks(blocksArea.blocks, blocksArea.blockSize, blocksArea.primaryBlocks, blocksArea.totalBlocks);
 };
 
 inputBlockSize.addEventListener('change', blockSizeHandler);
@@ -94,8 +96,8 @@ const primaryBlockHandler = (e) => {
 
     value = checkMaxMin(value, totalBlocks, 1, target);
 
-    primaryBlocks = value;
-    sizeAllBlocks(blocksGrid.querySelectorAll('li'));
+    blocksArea.primaryBlocks = value;
+    sizeAllBlocks(blocksArea.blocks, blocksArea.blockSize, blocksArea.primaryBlocks, blocksArea.totalBlocks);
 };
 
 inputPrimaryBlocks.addEventListener('change', primaryBlockHandler);
@@ -108,9 +110,9 @@ const resolutionHandler = (e) => {
     let value = target.value;
 
     if (target === resolutionWidth) {
-        resolution[0] = value;
+        blocksArea.resolution[0] = value;
     } else if (target === resolutionHeight) {
-        resolution[1] = value;
+        blocksArea.resolution[1] = value;
     }
 
     blocksArea.areaListener();
@@ -123,20 +125,20 @@ resolutionHeight.addEventListener('keyup', resolutionHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
-    blocksGrid.querySelectorAll('li').forEach(el => {
+    [...blocksArea.blocks].forEach(el => {
         colorBlock(el, colors);
     });
 });
 
 // Button to randomly generate new sizes
 generateSizes.addEventListener('click', e => {
-    sizeAllBlocks(blocksGrid.querySelectorAll('li'));
+    sizeAllBlocks(blocksArea.blocks, blocksArea.blockSize, blocksArea.primaryBlocks, blocksArea.totalBlocks);
 });
 
 // Button to randomly regenerate everything
 generateAll.addEventListener('click', (e) => {
-    sizeAllBlocks(blocksGrid.querySelectorAll('li'));
-    blocksGrid.querySelectorAll('li').forEach(el => {
+    sizeAllBlocks(blocksArea.blocks, blocksArea.blockSize, blocksArea.primaryBlocks, blocksArea.totalBlocks);
+    [...blocksArea.blocks].forEach(el => {
         colorBlock(el, colors);
     });
 });
