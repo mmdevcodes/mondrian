@@ -28,6 +28,7 @@ export function getRowSpan(blockSize) {
  * @param {Integer} value Value to check
  * @param {Integer} max Maximum number value can be
  * @param {Integer} min Minimum number value can be
+ * @param {HTMLInputElement} input Input to have its value updated
  */
 export function checkMaxMin(value, max = 9999, min = 1, input) {
     value = parseInt(value);

@@ -1,4 +1,3 @@
-import { resolution } from '../index';
 import { debounce, scaleContent } from './utils';
 
 /**
@@ -7,20 +6,21 @@ import { debounce, scaleContent } from './utils';
 * @param {HTMLElement} innerEl
 */
 export default class Area {
-    constructor(outerEl, innerEl) {
+    constructor(outerEl, innerEl, resolution) {
         this.outerEl = outerEl;
         this.innerEl = innerEl;
         this.mainStyle;
         this.mainWidth;
         this.mainHeight;
         this.scale;
+        this.resolution = resolution;
 
         // Run logic
         this.setupArea();
 
-        // Setup debounced version of setupArea for window resizing
-        this.setupAreaListener = debounce(this.setupArea.bind(this), 100);
-        window.addEventListener('resize', this.setupAreaListener);
+        // Setup debounced version of setupArea for event handlers
+        this.areaListener = debounce(this.setupArea.bind(this), 100);
+        window.addEventListener('resize', this.areaListener);
     }
 
     setupArea = () => {
@@ -33,11 +33,11 @@ export default class Area {
         this.mainHeight -= parseFloat(this.mainStyle.paddingTop) + parseFloat(this.mainStyle.paddingBottom);
 
         // Setting width/height on the layout element
-        this.innerEl.style.width = `${resolution[0]}px`;
-        this.innerEl.style.height = `${resolution[1]}px`;
+        this.innerEl.style.width = `${this.resolution[0]}px`;
+        this.innerEl.style.height = `${this.resolution[1]}px`;
 
         // Scale the layout proportionally to available space
-        this.scale = scaleContent(this.innerEl, this.mainWidth, this.mainHeight, resolution[0], resolution[1]);
+        this.scale = scaleContent(this.innerEl, this.mainWidth, this.mainHeight, this.resolution[0], this.resolution[1]);
         this.outerEl.classList.add('ready');
     }
 }

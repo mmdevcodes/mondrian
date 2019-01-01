@@ -17,6 +17,8 @@ export const gridSettings = document.getElementById('grid-settings');
 export const inputTotalBlocks = document.getElementById('total-blocks');
 export const inputBlockSize = document.getElementById('block-size');
 export const inputPrimaryBlocks = document.getElementById('primary-blocks');
+export const resolutionWidth = document.getElementById('resolution-width');
+export const resolutionHeight = document.getElementById('resolution-height');
 export const colorSettings = document.getElementById('settings-color');
 export const generateColors = document.getElementById('generate-colors');
 export const generateSizes = document.getElementById('generate-sizes');
@@ -26,9 +28,6 @@ export const filterSettingsForm = document.getElementById('filters-settings');
 export const filterRows = document.getElementById('filters-row');
 export const goBackBtn = document.getElementById('go-back');
 export const downloadBtn = document.getElementById('download');
-export const resolution = [1920, 1080];
-export const blocksArea = new Area(blocksSection, blocksLayout);
-
 
 // Variables
 export let totalBlocks = 100;
@@ -40,8 +39,11 @@ export let colors = {
     color2: newRandomColor('gray'),
     color3: newRandomColor()
 };
+export let resolution = [1920, 1080];
+
 
 // Initialize
+export const blocksArea = new Area(blocksSection, blocksLayout, resolution);
 setupColors(colorSettings);
 setBlocks(totalBlocks, blocksGrid)
     .then(generated => sizeAllBlocks(generated))
@@ -52,6 +54,8 @@ window.addEventListener('DOMContentLoaded', (e) => {
     inputTotalBlocks.value = totalBlocks;
     inputBlockSize.value = blockSize;
     inputPrimaryBlocks.value = primaryBlocks;
+    resolutionWidth.value = resolution[0];
+    resolutionHeight.value = resolution[1];
 });
 
 // Event handler for changing total amount of blocks
@@ -96,6 +100,26 @@ const primaryBlockHandler = (e) => {
 
 inputPrimaryBlocks.addEventListener('change', primaryBlockHandler);
 inputPrimaryBlocks.addEventListener('keyup', primaryBlockHandler);
+
+// Event handler for changing resolution
+const resolutionHandler = (e) => {
+    const target = e.target;
+    const id = target.id;
+    let value = target.value;
+
+    if (target === resolutionWidth) {
+        resolution[0] = value;
+    } else if (target === resolutionHeight) {
+        resolution[1] = value;
+    }
+
+    blocksArea.areaListener();
+};
+
+resolutionWidth.addEventListener('change', resolutionHandler);
+resolutionHeight.addEventListener('change', resolutionHandler);
+resolutionWidth.addEventListener('keyup', resolutionHandler);
+resolutionHeight.addEventListener('keyup', resolutionHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
