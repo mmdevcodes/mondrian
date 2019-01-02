@@ -11,10 +11,11 @@ export default class Area {
         this.mainStyle;
         this.mainWidth;
         this.mainHeight;
-        this.scale;
-        this.x;
-        this.y;
-        this.rotate;
+        this.outerScale;
+        this.innerScale = 1.3;
+        this.x = 0;
+        this.y = 0;
+        this.rotate = 0;
         this.blockSize = blockSize;
         this.primaryBlocks = primaryBlocks;
         this.resolution = resolution;
@@ -26,6 +27,7 @@ export default class Area {
 
         // Create Mondrian area
         this.setBlocks();
+        this.transformBlocks();
 
         // Wrapped methods
         this.areaListener = debounce(this.setupArea.bind(this), 100);
@@ -48,7 +50,7 @@ export default class Area {
         this.innerEl.style.height = `${this.resolution[1]}px`;
 
         // Scale the layout proportionally to available space
-        this.scale = scaleContent(this.innerEl, this.mainWidth, this.mainHeight, this.resolution[0], this.resolution[1]);
+        this.outerScale = scaleContent(this.innerEl, this.mainWidth, this.mainHeight, this.resolution[0], this.resolution[1]);
         this.outerEl.classList.add('ready');
     }
 
@@ -90,5 +92,13 @@ export default class Area {
         sizeAllBlocks(generatedBlocks, this.blockSize, this.primaryBlocks, this.totalBlocks);
 
         return generatedBlocks;
+    }
+
+    transformBlocks = () => {
+        this.blocksContainer.style.transform = `
+            translate(${this.x}px, ${this.y}px)
+            rotate(${this.rotate}deg)
+            scale(${this.innerScale})
+        `;
     }
 }

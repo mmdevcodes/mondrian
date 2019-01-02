@@ -52,8 +52,8 @@ export default class Draggable {
                 this.currentY = e.clientY - this.containerRect.top;
             }
 
-            this.currentX = this.currentX * (1 / blocksArea.scale) - (this.dragItemRect.width / 2);
-            this.currentY = this.currentY * (1 / blocksArea.scale) - (this.dragItemRect.height / 2);
+            this.currentX = this.currentX * (1 / blocksArea.outerScale) - (this.dragItemRect.width / 2);
+            this.currentY = this.currentY * (1 / blocksArea.outerScale) - (this.dragItemRect.height / 2);
 
             this.xOffset = this.currentX;
             this.yOffset = this.currentY;

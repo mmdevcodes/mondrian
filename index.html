@@ -64,13 +64,37 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <div class="field-label">
+                                    <label for="blocks-x">X</label>/<label for="blocks-y">Y</label>/<label for="blocks-rotate">Rotate</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="field-group">
+                                    <div class="field">
+                                        <input id="blocks-x" type="number">
+                                    </div>
+                                    <div class="field">
+                                        <input id="blocks-y" type="number">
+                                    </div>
+                                    <div class="field">
+                                        <input id="blocks-rotate" type="number">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="blocks-scale">Scale</label></td>
+                            <td><input id="blocks-scale" type="number" step="0.01"></td>
+                        </tr>
                     </table>
                 </fieldset>
                 <hr class="divider">
                 <fieldset>
                     <legend class="settings-header">Colors</legend>
-                    <div id="settings-color"></div>
                     <button id="add-color" type="button">Add Color</button>
+                    <div id="settings-color"></div>
                 </fieldset>
             </form>
             <form class="settings-form" id="filters-settings">

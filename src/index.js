@@ -16,8 +16,12 @@ export const gridSettings = document.getElementById('grid-settings');
 export const inputTotalBlocks = document.getElementById('total-blocks');
 export const inputBlockSize = document.getElementById('block-size');
 export const inputPrimaryBlocks = document.getElementById('primary-blocks');
-export const resolutionWidth = document.getElementById('resolution-width');
-export const resolutionHeight = document.getElementById('resolution-height');
+export const inputResWidth = document.getElementById('resolution-width');
+export const inputResHeight = document.getElementById('resolution-height');
+export const inputBlocksX = document.getElementById('blocks-x');
+export const inputBlocksY = document.getElementById('blocks-y');
+export const inputBlocksRotate = document.getElementById('blocks-rotate');
+export const inputBlocksScale = document.getElementById('blocks-scale');
 export const colorSettings = document.getElementById('settings-color');
 export const generateColors = document.getElementById('generate-colors');
 export const generateSizes = document.getElementById('generate-sizes');
@@ -58,12 +62,16 @@ window.addEventListener('DOMContentLoaded', (e) => {
     inputTotalBlocks.value = blocksArea.totalBlocks;
     inputBlockSize.value = blocksArea.blockSize;
     inputPrimaryBlocks.value = blocksArea.primaryBlocks;
-    resolutionWidth.value = blocksArea.resolution[0];
-    resolutionHeight.value = blocksArea.resolution[1];
+    inputResWidth.value = blocksArea.resolution[0];
+    inputResHeight.value = blocksArea.resolution[1];
+    inputBlocksX.value = blocksArea.x;
+    inputBlocksY.value = blocksArea.y;
+    inputBlocksRotate.value = blocksArea.rotate;
+    inputBlocksScale.value = blocksArea.innerScale;
 });
 
 // Event handler for changing total amount of blocks
-const totalBlocksHandler = (e) => {
+const totalBlocksHandler = e => {
     const target = e.target;
     const max = target.max;
     let value = target.value;
@@ -76,7 +84,7 @@ inputTotalBlocks.addEventListener('change', totalBlocksHandler);
 inputTotalBlocks.addEventListener('keyup', totalBlocksHandler);
 
 // Event handler for changing max block size
-const blockSizeHandler = (e) => {
+const blockSizeHandler = e => {
     const target = e.target;
     const value = target.value;
     const max = target.max;
@@ -90,7 +98,7 @@ inputBlockSize.addEventListener('change', blockSizeHandler);
 inputBlockSize.addEventListener('keyup', blockSizeHandler);
 
 // Event handler for changing primary block amount
-const primaryBlockHandler = (e) => {
+const primaryBlockHandler = e => {
     const target = e.target;
     let value = target.value;
 
@@ -104,24 +112,51 @@ inputPrimaryBlocks.addEventListener('change', primaryBlockHandler);
 inputPrimaryBlocks.addEventListener('keyup', primaryBlockHandler);
 
 // Event handler for changing resolution
-const resolutionHandler = (e) => {
+const resolutionHandler = e => {
     const target = e.target;
     const id = target.id;
     let value = target.value;
 
-    if (target === resolutionWidth) {
+    if (target === inputResWidth) {
         blocksArea.resolution[0] = value;
-    } else if (target === resolutionHeight) {
+    } else if (target === inputResHeight) {
         blocksArea.resolution[1] = value;
     }
 
     blocksArea.areaListener();
 };
 
-resolutionWidth.addEventListener('change', resolutionHandler);
-resolutionHeight.addEventListener('change', resolutionHandler);
-resolutionWidth.addEventListener('keyup', resolutionHandler);
-resolutionHeight.addEventListener('keyup', resolutionHandler);
+inputResWidth.addEventListener('change', resolutionHandler);
+inputResHeight.addEventListener('change', resolutionHandler);
+inputResWidth.addEventListener('keyup', resolutionHandler);
+inputResHeight.addEventListener('keyup', resolutionHandler);
+
+// Event handler for changing max block size
+const blocksTransformHandler = e => {
+    const target = e.target;
+    const value = target.value;
+
+    if (target === inputBlocksX) {
+        blocksArea.x = value;
+    } else if (target === inputBlocksY) {
+        blocksArea.y = value;
+    } else if (target === inputBlocksRotate) {
+        blocksArea.rotate = value;
+    } else if (target === inputBlocksScale) {
+        blocksArea.innerScale = value;
+    }
+
+    blocksArea.transformBlocks();
+};
+
+inputBlocksX.addEventListener('change', blocksTransformHandler);
+inputBlocksY.addEventListener('change', blocksTransformHandler);
+inputBlocksRotate.addEventListener('change', blocksTransformHandler);
+inputBlocksScale.addEventListener('change', blocksTransformHandler);
+inputBlocksX.addEventListener('keyup', blocksTransformHandler);
+inputBlocksY.addEventListener('keyup', blocksTransformHandler);
+inputBlocksRotate.addEventListener('keyup', blocksTransformHandler);
+inputBlocksScale.addEventListener('keyup', blocksTransformHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
@@ -149,6 +184,7 @@ addFilters.addEventListener('click', e => {
         logging: false,
         width: resolution[0],
         height: resolution[1],
+        backgroundColor: '#000',
         onclone: html => {
             const layout = html.querySelector('.blocks-layout');
 

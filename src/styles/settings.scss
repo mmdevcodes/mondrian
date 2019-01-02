@@ -65,7 +65,8 @@
         }
     }
 
-    label {
+    label,
+    .field-label {
         white-space: nowrap;
     }
 
