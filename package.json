@@ -37,6 +37,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "cssnano": "^3.10.0",
+    "dom-to-image": "^2.6.0",
     "eslint": "^5.7.0",
     "eslint-loader": "^2.1.1",
     "favicons-webpack-plugin": "0.0.9",
@@ -61,7 +62,6 @@
     "webpack-dev-server": "^3.1.11"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "html2canvas": "^1.0.0-alpha.12"
+    "@babel/polyfill": "^7.0.0"
   }
 }

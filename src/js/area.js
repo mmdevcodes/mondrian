@@ -12,7 +12,7 @@ export default class Area {
         this.mainWidth;
         this.mainHeight;
         this.outerScale;
-        this.innerScale = 1.3;
+        this.innerScale = 1.00;
         this.x = 0;
         this.y = 0;
         this.rotate = 0;

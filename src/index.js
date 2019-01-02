@@ -5,7 +5,7 @@ import Area from './js/area';
 import setupColors from './js/setupColors';
 import { checkMaxMin, newRandomColor } from './js/utils';
 import addEffects from './js/addEffects';
-import html2canvas from 'html2canvas';
+import domtoimage from "dom-to-image";
 
 // Selectors
 export const main = document.querySelector('.main');
@@ -180,20 +180,30 @@ generateAll.addEventListener('click', (e) => {
 
 // Button to add filters
 addFilters.addEventListener('click', e => {
-    html2canvas(blocksLayout, {
-        logging: false,
-        width: resolution[0],
-        height: resolution[1],
-        backgroundColor: '#000',
-        onclone: html => {
-            const layout = html.querySelector('.blocks-layout');
-
-            // Removes the proportional scaling for outputted screenshot
-            layout.style.transform = null;
+    domtoimage.toPng(blocksLayout, {
+        width: blocksArea.resolution[0],
+        height: blocksArea.resolution[1],
+        style: {
+            transform: null,
+            position: 'static'
         }
     })
-    .then(canvas => {
-        addEffects(canvas);
+    .then(imgSrc => {
+        const img = new Image();
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Width/Height of canvas needs to be added for glfx to work
+        canvas.width = blocksArea.resolution[0];
+        canvas.height = blocksArea.resolution[1];
+
+        // Image has to load first generating a new canvas to pass to glfx
+        img.addEventListener('load', (e) => {
+            ctx.drawImage(img,0,0);
+            addEffects(canvas);
+        });
+
+        img.src = imgSrc;
     })
     .catch(error => console.error(error));
 });
