@@ -50,8 +50,9 @@ const goBackListener = e => {
     gridSettings.classList.add('active');
     filterSettingsForm.classList.remove('active');
 
-    // Remove canvas from DOM
+    // Remove elements from DOM
     fxCanvas.remove();
+    document.getElementById('draggable').remove();
 };
 
 const downloadListener = e => {
@@ -60,6 +61,9 @@ const downloadListener = e => {
 };
 
 export default function filters(canvas) {
+    const nubContainer = document.createElement('div');
+
+    // Setup glfx
     fxCanvas = glfx.canvas();
     fxTexture = fxCanvas.texture(canvas);
     fxSettings = new FilterSettings(fxCanvas, fxTexture);
@@ -67,18 +71,20 @@ export default function filters(canvas) {
     // Changing settings mode
     gridSettings.classList.remove('active');
     filterSettingsForm.classList.add('active');
+    nubContainer.id = 'draggable';
 
     // Loading up a canvas
     fxCanvas.id = 'canvas-filter';
     fxCanvas.draw(fxTexture).update();
 
+    // Add elements to DOM
+    blocksLayout.insertAdjacentElement('afterbegin', fxCanvas);
+    blocksLayout.insertAdjacentElement('beforeend', nubContainer);
+
     // For each type of filter add settings and hook up to canvas
     for (let i = 0; i < allFilters.length; i++) {
         allFilters[i].use();
     }
-
-    // Add canvas to DOM
-    blocksLayout.prepend(fxCanvas);
 
     // Button to go back to editing the layout
     goBackBtn.addEventListener('click', goBackListener);

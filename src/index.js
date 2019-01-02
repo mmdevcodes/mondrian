@@ -4,7 +4,7 @@ import sizeAllBlocks from './js/sizeAllBlocks';
 import Area from './js/area';
 import setupColors from './js/setupColors';
 import { checkMaxMin, newRandomColor } from './js/utils';
-import filters from './js/addEffects';
+import addEffects from './js/addEffects';
 import html2canvas from 'html2canvas';
 
 // Selectors
@@ -157,7 +157,7 @@ addFilters.addEventListener('click', e => {
         }
     })
     .then(canvas => {
-        filters(canvas);
+        addEffects(canvas);
     })
     .catch(error => console.error(error));
 });

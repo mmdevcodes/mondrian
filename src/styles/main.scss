@@ -39,6 +39,35 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
+.github-corner {
+	fill: $white;
+	color: $darkgray-alt;
+	position: absolute;
+	top: 0;
+	border: 0;
+	right: 0;
+	transition: all $trans-time-short $trans-ease;
+	opacity: 0.85;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+@keyframes octocat-wave {
+	0%,100% {
+		transform: rotate(0);
+	}
+
+	20%,60% {
+		transform: rotate(-25deg);
+	}
+
+	40%,80% {
+		transform: rotate(10deg);
+	}
+}
+
 @media (min-width: $breakpoint) {
 	body {
 		overflow: hidden;
@@ -49,5 +78,13 @@ h1, h2, h3, h4, h5, h6 {
 		justify-content: space-between;
 		width: 100vw;
 		height: 100vh;
+	}
+
+	.github-corner {
+		&:hover {
+			.octo-arm {
+				animation: octocat-wave 560ms ease-in-out;
+			}
+		}
 	}
 }

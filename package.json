@@ -1,7 +1,7 @@
 {
-  "name": "mondrian-layout",
+  "name": "mondrian",
   "version": "1.0.0",
-  "description": "Create art inspired by Piet Mondrian",
+  "description": "Generate wallpapers inspired by art from Piet Mondrian",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js --mode development",
     "build": "webpack --config webpack.prod.js --mode production",
@@ -18,12 +18,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MauriceMahan/mondrian-layout.git"
+    "url": "git+https://github.com/MauriceMahan/mondrian.git"
   },
   "bugs": {
-    "url": "https://github.com/MauriceMahan/mondrian-layout/issues"
+    "url": "https://github.com/MauriceMahan/mondrian/issues"
   },
-  "homepage": "https://mauricemahan.github.io/mondrian-layout/",
+  "homepage": "https://mauricemahan.github.io/mondrian/",
   "author": "Maurice Mahan",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
