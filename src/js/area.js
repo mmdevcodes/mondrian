@@ -3,7 +3,7 @@ import colorBlock from './colorBlock';
 import sizeAllBlocks from './sizeAllBlocks';
 
 export default class Area {
-    constructor(outerEl, innerEl, container, resolution, totalBlocks, colors, blockSize, primaryBlocks) {
+    constructor(outerEl, innerEl, container, resolution, totalBlocks, colors, blockSize, primaryBlocks, gap) {
         this.outerEl = outerEl;
         this.innerEl = innerEl;
         this.blocksContainer = container;
@@ -18,6 +18,7 @@ export default class Area {
         this.rotate = 0;
         this.blockSize = blockSize;
         this.primaryBlocks = primaryBlocks;
+        this.gap = gap;
         this.resolution = resolution;
         this.totalBlocks = totalBlocks;
         this.colors = colors;
@@ -52,6 +53,9 @@ export default class Area {
         // Scale the layout proportionally to available space
         this.outerScale = scaleContent(this.innerEl, this.mainWidth, this.mainHeight, this.resolution[0], this.resolution[1]);
         this.outerEl.classList.add('ready');
+
+        // Add grid gap
+        this.setGap();
     }
 
     setBlocks = (desiredAmount = this.totalBlocks) => {
@@ -100,5 +104,10 @@ export default class Area {
             rotate(${this.rotate}deg)
             scale(${this.innerScale})
         `;
+    }
+
+    setGap = () => {
+        console.log('fired');
+        this.blocksContainer.style.gridGap = `${this.gap}px`;
     }
 }

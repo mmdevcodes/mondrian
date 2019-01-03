@@ -23,6 +23,7 @@ export const inputBlocksX = document.getElementById('blocks-x');
 export const inputBlocksY = document.getElementById('blocks-y');
 export const inputBlocksRotate = document.getElementById('blocks-rotate');
 export const inputBlocksScale = document.getElementById('blocks-scale');
+export const inputBlocksGap = document.getElementById('blocks-gap');
 export const colorSettings = document.getElementById('settings-color');
 export const generateColors = document.getElementById('generate-colors');
 export const generateSizes = document.getElementById('generate-sizes');
@@ -37,6 +38,7 @@ export const downloadBtn = document.getElementById('download');
 export let totalBlocks = 150;
 export let primaryBlocks = 5;
 export let blockSize = 3;
+export let gap = 11;
 export let colors = {
     color0: '#fff',
     color1: newRandomColor('white'),
@@ -54,7 +56,8 @@ export const blocksArea = new Area(
     totalBlocks,
     colors,
     blockSize,
-    primaryBlocks
+    primaryBlocks,
+    gap
 );
 setupColors(colorSettings);
 
@@ -69,6 +72,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
     inputBlocksY.value = blocksArea.y;
     inputBlocksRotate.value = blocksArea.rotate;
     inputBlocksScale.value = blocksArea.innerScale;
+    inputBlocksGap.value = blocksArea.gap;
 });
 
 // Event handler for changing total amount of blocks
@@ -158,6 +162,18 @@ inputBlocksX.addEventListener('keyup', blocksTransformHandler);
 inputBlocksY.addEventListener('keyup', blocksTransformHandler);
 inputBlocksRotate.addEventListener('keyup', blocksTransformHandler);
 inputBlocksScale.addEventListener('keyup', blocksTransformHandler);
+
+// Event handler for changing gap size
+const gapHandler = e => {
+    const target = e.target;
+    const value = target.value;
+
+    blocksArea.gap = value;
+    blocksArea.setGap();
+};
+
+inputBlocksGap.addEventListener('change', gapHandler);
+inputBlocksGap.addEventListener('keyup', gapHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
