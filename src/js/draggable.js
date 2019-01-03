@@ -7,8 +7,8 @@ export default class Draggable {
         this.container = outer;
         this.containerRect = this.container.getBoundingClientRect();
         this.active = false;
-        this.currentX;
-        this.currentY;
+        this.currentX = initialX;
+        this.currentY = initialY;
         this.initialX = initialX;
         this.initialY = initialY;
         this.xOffset = this.containerRect.left;
@@ -59,12 +59,12 @@ export default class Draggable {
             this.yOffset = this.currentY;
 
             this.setTranslate(this.currentX, this.currentY, this.dragItem);
-
-            this.itemListener(this.currentX, this.currentY);
         }
     }
 
     dragEnd = e => {
+        this.itemListener(this.currentX, this.currentY);
+
         this.initialX = this.currentX;
         this.initialY = this.currentY;
 

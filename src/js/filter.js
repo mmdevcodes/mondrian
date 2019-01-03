@@ -51,8 +51,7 @@ export default class Filter {
                             max="${slider.max}"
                             value="${slider.value}"
                             step="${slider.step}"
-                            @change=${onchange}
-                            @input=${sliderListener}
+                            @change=${sliderListener}
                         >
                     </div>
                     ${sliderSetValue(slider)}
@@ -75,7 +74,7 @@ export default class Filter {
 
             // Setup DOM
             nubHtml.classList.add('nub');
-            nubHtml.setAttribute('title', nub.name);
+            nubHtml.setAttribute('title', `${this.name} ${nub.name}`);
             dragBlock.insertAdjacentElement('afterbegin', nubHtml);
 
             // Instantiate after adding to DOM since width/height calculations are being done
