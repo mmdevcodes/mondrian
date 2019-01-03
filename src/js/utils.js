@@ -163,3 +163,17 @@ export function debounce(func, wait, immediate) {
 export function isBetween(x, min, max) {
     return x >= min && x <= max;
 }
+
+/**
+ * Wrap HTML in an <html> and include the original <head> contents
+ * @param {HTMLElement} html
+ */
+export function wrapHTML(html) {
+    const head = document.querySelector('head');
+    return `
+        <html>
+            ${head.outerHTML}
+            <body>${html.outerHTML}</body>
+        </html>
+    `;
+};

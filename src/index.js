@@ -3,9 +3,10 @@ import colorBlock from './js/colorBlock';
 import sizeAllBlocks from './js/sizeAllBlocks';
 import Area from './js/area';
 import setupColors from './js/setupColors';
-import { checkMaxMin, newRandomColor } from './js/utils';
+import { checkMaxMin, newRandomColor, wrapHTML } from './js/utils';
 import addEffects from './js/addEffects';
-import domtoimage from "dom-to-image";
+import rasterizeHTML from "rasterizehtml";
+import computedStyleToInlineStyle from "computed-style-to-inline-style";
 
 // Selectors
 export const main = document.querySelector('.main');
@@ -180,30 +181,68 @@ generateAll.addEventListener('click', (e) => {
 
 // Button to add filters
 addFilters.addEventListener('click', e => {
-    domtoimage.toPng(blocksLayout, {
-        width: blocksArea.resolution[0],
-        height: blocksArea.resolution[1],
-        style: {
-            transform: null,
-            position: 'static'
-        }
-    })
-    .then(imgSrc => {
-        const img = new Image();
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+    const btnText = e.target.textContent;
+    e.target.textContent = 'Loading';
 
-        // Width/Height of canvas needs to be added for glfx to work
-        canvas.width = blocksArea.resolution[0];
-        canvas.height = blocksArea.resolution[1];
+    const body = document.querySelector('body');
+    const canvas = document.createElement("canvas");
+    const clone = blocksLayout.cloneNode(true);
 
-        // Image has to load first generating a new canvas to pass to glfx
-        img.addEventListener('load', (e) => {
-            ctx.drawImage(img,0,0);
+    // Width/Height of canvas needs to be added for glfx to work
+    canvas.width = blocksArea.resolution[0];
+    canvas.height = blocksArea.resolution[1];
+
+    // Remove proportional scaling for full size render
+    clone.style.transform = null;
+    clone.style.position = 'static';
+
+    // Clone has to added to the DOM for Chrome to pick up generated styles
+    body.append(clone);
+
+    // Have to manually generate inline styles for Firefox to correctly render an image
+    computedStyleToInlineStyle(clone, {
+        recursive: true,
+        properties: [
+            'display',
+            'width',
+            'height',
+            'overflow',
+            'transform',
+            'grid-template-columns',
+            'grid-auto-flow',
+            'grid-auto-rows',
+            'grid-row-start',
+            'grid-row-end',
+            'grid-column-start',
+            'grid-column-end',
+            'row-gap',
+            'column-gap',
+            'margin-top',
+            'margin-right',
+            'margin-bottom',
+            'margin-left',
+            'padding-top',
+            'padding-right',
+            'padding-bottom',
+            'padding-left',
+            'list-style-position',
+            'list-style-image',
+            'list-style-type',
+            'box-sizing',
+            'background-image',
+            'background-color'
+        ]
+    });
+
+    // Remove from DOM after inline styles have been generated
+    clone.remove();
+
+    // Draw the HTML onto a new canvas and pass it to glfx
+    rasterizeHTML
+        .drawHTML(wrapHTML(clone), canvas)
+        .catch(error => console.error(error))
+        .finally(() => {
             addEffects(canvas);
+            e.target.textContent = btnText;
         });
-
-        img.src = imgSrc;
-    })
-    .catch(error => console.error(error));
 });
