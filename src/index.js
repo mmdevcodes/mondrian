@@ -61,25 +61,11 @@ export const blocksArea = new Area(
 );
 setupColors(colorSettings);
 
-// Event listeners
-window.addEventListener('DOMContentLoaded', (e) => {
-    inputTotalBlocks.value = blocksArea.totalBlocks;
-    inputBlockSize.value = blocksArea.blockSize;
-    inputPrimaryBlocks.value = blocksArea.primaryBlocks;
-    inputResWidth.value = blocksArea.resolution[0];
-    inputResHeight.value = blocksArea.resolution[1];
-    inputBlocksX.value = blocksArea.x;
-    inputBlocksY.value = blocksArea.y;
-    inputBlocksRotate.value = blocksArea.rotate;
-    inputBlocksScale.value = blocksArea.innerScale;
-    inputBlocksGap.value = blocksArea.gap;
-});
-
 // Event handler for changing total amount of blocks
 const totalBlocksHandler = e => {
     const target = e.target;
     const max = target.max;
-    let value = target.value;
+    const value = target.value;
 
     blocksArea.totalBlocks = checkMaxMin(value, max, undefined, target);
     blocksArea.setBlocks();

@@ -81,6 +81,7 @@
         height: 40px;
         padding: 0 10px;
         margin: 0;
+        box-shadow: none;
         transition: all $trans-time-short $trans-ease;
 
         &:hover,
