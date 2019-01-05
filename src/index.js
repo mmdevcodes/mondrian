@@ -72,7 +72,7 @@ const totalBlocksHandler = e => {
 };
 
 inputTotalBlocks.addEventListener('change', totalBlocksHandler);
-inputTotalBlocks.addEventListener('keyup', totalBlocksHandler);
+inputTotalBlocks.addEventListener('input', totalBlocksHandler);
 
 // Event handler for changing max block size
 const blockSizeHandler = e => {
@@ -86,7 +86,7 @@ const blockSizeHandler = e => {
 };
 
 inputBlockSize.addEventListener('change', blockSizeHandler);
-inputBlockSize.addEventListener('keyup', blockSizeHandler);
+inputBlockSize.addEventListener('input', blockSizeHandler);
 
 // Event handler for changing primary block amount
 const primaryBlockHandler = e => {
@@ -100,7 +100,7 @@ const primaryBlockHandler = e => {
 };
 
 inputPrimaryBlocks.addEventListener('change', primaryBlockHandler);
-inputPrimaryBlocks.addEventListener('keyup', primaryBlockHandler);
+inputPrimaryBlocks.addEventListener('input', primaryBlockHandler);
 
 // Event handler for changing resolution
 const resolutionHandler = e => {
@@ -119,8 +119,8 @@ const resolutionHandler = e => {
 
 inputResWidth.addEventListener('change', resolutionHandler);
 inputResHeight.addEventListener('change', resolutionHandler);
-inputResWidth.addEventListener('keyup', resolutionHandler);
-inputResHeight.addEventListener('keyup', resolutionHandler);
+inputResWidth.addEventListener('input', resolutionHandler);
+inputResHeight.addEventListener('input', resolutionHandler);
 
 // Event handler for changing max block size
 const blocksTransformHandler = e => {
@@ -144,10 +144,10 @@ inputBlocksX.addEventListener('change', blocksTransformHandler);
 inputBlocksY.addEventListener('change', blocksTransformHandler);
 inputBlocksRotate.addEventListener('change', blocksTransformHandler);
 inputBlocksScale.addEventListener('change', blocksTransformHandler);
-inputBlocksX.addEventListener('keyup', blocksTransformHandler);
-inputBlocksY.addEventListener('keyup', blocksTransformHandler);
-inputBlocksRotate.addEventListener('keyup', blocksTransformHandler);
-inputBlocksScale.addEventListener('keyup', blocksTransformHandler);
+inputBlocksX.addEventListener('input', blocksTransformHandler);
+inputBlocksY.addEventListener('input', blocksTransformHandler);
+inputBlocksRotate.addEventListener('input', blocksTransformHandler);
+inputBlocksScale.addEventListener('input', blocksTransformHandler);
 
 // Event handler for changing gap size
 const gapHandler = e => {
@@ -159,7 +159,7 @@ const gapHandler = e => {
 };
 
 inputBlocksGap.addEventListener('change', gapHandler);
-inputBlocksGap.addEventListener('keyup', gapHandler);
+inputBlocksGap.addEventListener('input', gapHandler);
 
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {

@@ -131,15 +131,15 @@ export default class Area {
 
     interaction = () => {
         const onDragMove = e => {
-            this.x = parseFloat(this.x) + parseFloat(e.dx.toFixed(2));
-            this.y = parseFloat(this.y) + parseFloat(e.dy.toFixed(2));
+            this.x = parseFloat(this.x) + e.dx;
+            this.y = parseFloat(this.y) + e.dy;
 
             this.moveBlocks();
         };
 
         const onGestureMove = e => {
-            this.rotate = parseFloat(this.rotate) + parseFloat(e.da.toFixed(2));
-            this.innerScale = parseFloat(this.innerScale) + parseFloat(e.ds.toFixed(2));
+            this.rotate = parseFloat(this.rotate) + e.da;
+            this.innerScale = parseFloat(this.innerScale) + e.ds;
 
             this.moveBlocks();
         };
@@ -176,10 +176,10 @@ export default class Area {
         inputPrimaryBlocks.value = this.primaryBlocks;
         inputResWidth.value = this.resolution[0];
         inputResHeight.value = this.resolution[1];
-        inputBlocksX.value = this.x;
-        inputBlocksY.value = this.y;
-        inputBlocksRotate.value = this.rotate;
-        inputBlocksScale.value = this.innerScale;
+        inputBlocksX.value = this.x.toFixed(2);
+        inputBlocksY.value = this.y.toFixed(2);
+        inputBlocksRotate.value = this.rotate.toFixed(2);
+        inputBlocksScale.value = this.innerScale.toFixed(2);
         inputBlocksGap.value = this.gap;
     }
 }
