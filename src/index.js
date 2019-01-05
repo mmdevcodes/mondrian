@@ -137,7 +137,7 @@ const blocksTransformHandler = e => {
         blocksArea.innerScale = value;
     }
 
-    blocksArea.transformBlocks();
+    blocksArea.moveBlocks();
 };
 
 inputBlocksX.addEventListener('change', blocksTransformHandler);

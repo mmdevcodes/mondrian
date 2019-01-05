@@ -176,10 +176,10 @@ export default class Area {
         inputPrimaryBlocks.value = this.primaryBlocks;
         inputResWidth.value = this.resolution[0];
         inputResHeight.value = this.resolution[1];
-        inputBlocksX.value = this.x.toFixed(2);
-        inputBlocksY.value = this.y.toFixed(2);
-        inputBlocksRotate.value = this.rotate.toFixed(2);
-        inputBlocksScale.value = this.innerScale.toFixed(2);
+        inputBlocksX.value = parseFloat(this.x).toFixed(2);
+        inputBlocksY.value = parseFloat(this.y).toFixed(2);
+        inputBlocksRotate.value = parseFloat(this.rotate).toFixed(2);
+        inputBlocksScale.value = parseFloat(this.innerScale).toFixed(2);
         inputBlocksGap.value = this.gap;
     }
 }
