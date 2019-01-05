@@ -107,7 +107,6 @@ export default class Area {
     }
 
     setGap = () => {
-        console.log('fired');
         this.blocksContainer.style.gridGap = `${this.gap}px`;
     }
 }
