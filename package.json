@@ -35,6 +35,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^0.1.19",
+    "color-scheme": "^1.0.1",
     "computed-style-to-inline-style": "^3.0.0",
     "css-loader": "^0.28.11",
     "cssnano": "^3.10.0",

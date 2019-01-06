@@ -58,63 +58,6 @@ export function checkMaxMin(value, max = 9999, min = 1, input) {
 }
 
 /**
- * Generate a random color from a colors object
- * @param {Object} colors
- */
-export function getRandomColor(colors) {
-    const setColor = getRandomInt(0, Object.keys(colors).length - 1);
-
-    return Object.keys(colors)[setColor];
-}
-
-/**
- * Generate a fresh new color
- * @param {String=} type Type of color (optional)
- */
-export function newRandomColor(type) {
-    // Throwing in some interesting names
-    const colorList = {
-        red: ['crimson', 'firebrick', 'salmon', 'indianred', 'maroon'],
-        pink: ['fuchsia', 'deeppink', 'hotpink'],
-        orange: ['coral', 'tomato', 'gold'],
-        yellow: ['lemonchiffon', 'lightgoldenrodyellow', 'khaki'],
-        purple: ['rebeccapurple', 'lavender', 'thistle', 'slateblue'],
-        green: ['forestgreen', 'olive', 'springgreen'],
-        blue: ['aquamarine', 'steelblue', 'powderblue', 'dodgerblue', 'royalblue', 'navy', 'midnightblue'],
-        brown: ['wheat', 'navajowhite', 'peru', 'sienna'],
-        gray: ['gainsboro', 'silver', 'dimgray', 'lightslategray', 'slategray', 'darkslategray'],
-        white: ['honeydew', 'mistyrose', 'seashell', 'oldlace', 'snow']
-    };
-    let color;
-
-    /**
-     * If a type of color is specified generate a random name of
-     * that color otherwise pull a random one from the entire list.
-     */
-    if (type !== undefined) {
-        const colorIndex = getRandomInt(0, colorList[type].length - 1);
-        color = colorList[type][colorIndex];
-    } else {
-        const colors = [
-            ...colorList.red,
-            ...colorList.pink,
-            ...colorList.orange,
-            ...colorList.yellow,
-            ...colorList.purple,
-            ...colorList.green,
-            ...colorList.blue,
-            ...colorList.brown,
-            ...colorList.gray,
-            ...colorList.white
-        ];
-        const colorIndex = getRandomInt(0, colors.length - 1);
-        color = colors[colorIndex];
-    }
-
-    return color;
-}
-
-/**
  * Resize element proportionally to available space
  * @param {HTMLElement} el Element to scale
  * @param {*} availableWidth

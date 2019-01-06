@@ -1,12 +1,11 @@
 import './styles/index.scss';
-import colorBlock from './js/colorBlock';
 import sizeAllBlocks from './js/sizeAllBlocks';
 import Area from './js/area';
-import setupColors from './js/setupColors';
-import { checkMaxMin, newRandomColor, wrapHTML } from './js/utils';
+import { checkMaxMin, wrapHTML } from './js/utils';
 import addEffects from './js/addEffects';
 import rasterizeHTML from "rasterizehtml";
 import computedStyleToInlineStyle from "computed-style-to-inline-style";
+import ColorSystem from "./js/colorSystem";
 
 // Selectors
 export const main = document.querySelector('.main');
@@ -29,6 +28,7 @@ export const generateColors = document.getElementById('generate-colors');
 export const generateSizes = document.getElementById('generate-sizes');
 export const generateAll = document.getElementById('generate-all');
 export const addFilters = document.getElementById('add-filters');
+export const addColor = document.getElementById('add-color');
 export const filterSettingsForm = document.getElementById('filters-settings');
 export const filterRows = document.getElementById('filters-row');
 export const goBackBtn = document.getElementById('go-back');
@@ -39,27 +39,21 @@ export let totalBlocks = 150;
 export let primaryBlocks = 5;
 export let blockSize = 3;
 export let gap = 11;
-export let colors = {
-    color0: '#fff',
-    color1: newRandomColor('white'),
-    color2: newRandomColor('gray'),
-    color3: newRandomColor()
-};
 export let resolution = [1920, 1080];
 
 // Initialize
+export const colorSystem = new ColorSystem(colorSettings, addColor, generateColors);
 export const blocksArea = new Area(
     blocksSection,
     blocksLayout,
     blocksGrid,
+    colorSystem,
     resolution,
     totalBlocks,
-    colors,
     blockSize,
     primaryBlocks,
     gap
 );
-setupColors(colorSettings);
 
 // Event handler for changing total amount of blocks
 const totalBlocksHandler = e => {
@@ -164,7 +158,7 @@ inputBlocksGap.addEventListener('input', gapHandler);
 // Button to randomly generate new colors
 generateColors.addEventListener('click', e => {
     [...blocksArea.blocks].forEach(el => {
-        colorBlock(el, colors);
+        colorSystem.colorBlock(el);
     });
 });
 
@@ -177,7 +171,7 @@ generateSizes.addEventListener('click', e => {
 generateAll.addEventListener('click', (e) => {
     sizeAllBlocks(blocksArea.blocks, blocksArea.blockSize, blocksArea.primaryBlocks, blocksArea.totalBlocks);
     [...blocksArea.blocks].forEach(el => {
-        colorBlock(el, colors);
+        colorSystem.colorBlock(el);
     });
 });
 

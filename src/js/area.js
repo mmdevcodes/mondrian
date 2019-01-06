@@ -1,6 +1,5 @@
 import interact from "interactjs";
 import { debounce, scaleContent } from './utils';
-import colorBlock from './colorBlock';
 import sizeAllBlocks from './sizeAllBlocks';
 import {
     inputTotalBlocks,
@@ -12,12 +11,11 @@ import {
     inputBlocksY,
     inputBlocksRotate,
     inputBlocksScale,
-    inputBlocksGap,
-    blocksLayout
+    inputBlocksGap
 } from '../index';
 
 export default class Area {
-    constructor(outerEl, innerEl, container, resolution, totalBlocks, colors, blockSize, primaryBlocks, gap) {
+    constructor(outerEl, innerEl, container, colorSystem, resolution, totalBlocks, blockSize, primaryBlocks, gap) {
         this.outerEl = outerEl;
         this.innerEl = innerEl;
         this.blocksContainer = container;
@@ -35,7 +33,7 @@ export default class Area {
         this.gap = gap;
         this.resolution = resolution;
         this.totalBlocks = totalBlocks;
-        this.colors = colors;
+        this.colorSystem = colorSystem;
 
         // Setup outer area
         this.setupArea();
@@ -87,7 +85,7 @@ export default class Area {
             const block = document.createElement('li');
 
             // Color each block
-            colorBlock(block, this.colors);
+            this.colorSystem.colorBlock(block);
 
             // Add block to DOM
             this.blocksContainer.appendChild(block);
@@ -157,6 +155,7 @@ export default class Area {
             this.moveBlocks();
         };
 
+        // Drag and gesture functionality
         interact(this.blocksContainer)
             .draggable({
                 onmove: onDragMove,
@@ -167,6 +166,7 @@ export default class Area {
                 onmove: onGestureMove
             });
 
+        // Scroll wheel zoom functionality
         this.innerEl.addEventListener('wheel', onWheel);
     }
 
