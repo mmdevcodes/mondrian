@@ -223,6 +223,10 @@
     text-indent: -9999px;
     cursor: pointer;
 
+    input {
+        @extend .visually-hidden;
+    }
+
     &::-webkit-color-swatch-wrapper { padding: 0; }
     &::-moz-color-swatch-wrapper { padding: 0; }
     &::-webkit-color-swatch { border: none; }

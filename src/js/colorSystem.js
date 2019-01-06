@@ -74,18 +74,22 @@ export default class ColorSystem {
                         <input
                             id="${color[0]}-input-text"
                             name="${color[0]}"
-                            value="${color[1]}"
+                            .value=${color[1]}
                             type="text"
                             @input="${colorChange}"
                         >
-                        <input
-                            id="${color[0]}-input-color"
-                            name="${color[0]}"
-                            value="${color[1]}"
-                            type="color"
+                        <label
                             class="color-indicator"
-                            @input="${colorChange}"
+                            style="background-color: var(--${color[0]})"
                         >
+                            <input
+                                id="${color[0]}-input-color"
+                                name="${color[0]}"
+                                .value=${color[1]}
+                                type="color"
+                                @input="${colorChange}"
+                            >
+                        </label>
                         <label
                             for="${color[0]}-input-text"
                             class="visually-hidden"
