@@ -32,7 +32,7 @@ export default class ColorSystem {
     createColorSetting = color => {
         const colorChange = e => {
             const target = e.target;
-            const id = target.id;
+            const id = target.name;
             const value = target.value;
 
             // Update colors object
@@ -72,16 +72,28 @@ export default class ColorSystem {
                 return html`
                     <div class="field">
                         <input
-                            id="${color[0]}"
+                            id="${color[0]}-input-text"
+                            name="${color[0]}"
                             value="${color[1]}"
                             type="text"
                             @input="${colorChange}"
                         >
-                        <label
-                            for="${color[0]}"
+                        <input
+                            id="${color[0]}-input-color"
+                            name="${color[0]}"
+                            value="${color[1]}"
+                            type="color"
                             class="color-indicator"
-                            style="background-color: var(--${color[0]})"
-                        >${color[0]}</label>
+                            @input="${colorChange}"
+                        >
+                        <label
+                            for="${color[0]}-input-text"
+                            class="visually-hidden"
+                        >Change color via text</label>
+                        <label
+                            for="${color[0]}-input-color"
+                            class="visually-hidden"
+                        >Change color via selector</label>
                         <button
                             type="button"
                             title="Remove"
@@ -118,7 +130,7 @@ export default class ColorSystem {
         return Object.keys(colors)[setColor];
     }
 
-    generateColors = (hue, scheme, variation) => {
+    generateColors = () => {
         const colorScheme = new ColorScheme;
         const colors = colorScheme
             .from_hue(this.hue)

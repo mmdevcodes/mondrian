@@ -210,10 +210,23 @@
     height: 15px;
     top: 50%;
     right: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     transform: translateY(-50%);
-    border: 1px solid $gray;
+    border: 1px solid $white;
+    box-shadow: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
     font-size: 0;
     text-indent: -9999px;
+    cursor: pointer;
+
+    &::-webkit-color-swatch-wrapper { padding: 0; }
+    &::-moz-color-swatch-wrapper { padding: 0; }
+    &::-webkit-color-swatch { border: none; }
+    &::-moz-color-swatch { border: none; }
 }
 
 .divider {
